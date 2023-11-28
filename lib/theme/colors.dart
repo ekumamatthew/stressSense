@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 class AppColor {
-static const white = Color(0xFEFEFE);
-static const blue = Color(0x0E47D8);
-static const yellow = Color(0xFAD411);
-static const black = Color(0x000000);
-static const gray = Color(0x575757);
-static const success = Color(0x107F55);
-static const warning = Color(0xF87B11);
-static const error = Color(0xEF4444);
+  static const white = Color(0xFFFFFFFF); // Added FF for alpha
+  static const blue = Color(0xFF0E47D8); // Added FF for alpha
+  static const yellow = Color(0xFFFAD411); // Added FF for alpha
+  static const black = Color(0xFF000000); // Added FF for alpha
+  static const gray = Color(0xFF575757); // Added FF for alpha
+  static const success = Color(0xFF107F55); // Added FF for alpha
+  static const warning = Color(0xFFF87B11); // Added FF for alpha
+  static const error = Color(0xFFEF4444);
 //   static const primary = Colors(0x0E47D8);
 //   static const secondary = Colors.white;
 //   static const mainColor = Color(0xFF000000);
