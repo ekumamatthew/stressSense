@@ -13,6 +13,8 @@ class Button1 extends StatelessWidget {
   final double height;
   final double letterSpacing;
 
+  final Color? borderColor;
+
   const Button1({
     Key? key,
     required this.text,
@@ -26,6 +28,7 @@ class Button1 extends StatelessWidget {
     required this.fontWeight,
     required this.height,
     required this.letterSpacing,
+    this.borderColor,
   }) : super(key: key);
 
   @override
@@ -36,6 +39,12 @@ class Button1 extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           backgroundColor: backgroundColor,
           padding: padding,
+          side: borderColor != null
+              ? BorderSide(color: borderColor!, width: 2.0)
+              : BorderSide.none,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(999),
+          ),
         ),
         onPressed: onPressed,
         child: Text(

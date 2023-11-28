@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:my_fizi_app/theme/colors.dart';
-import 'package:my_fizi_app/widgets/buttons.dart';
+import 'package:my_fizi_app/widgets/buttonsWidget/buttons.dart';
+import 'package:my_fizi_app/widgets/slideWidget/slideupModal.dart';
+import "package:my_fizi_app/screens/authScreens/createAccount/createAccount.dart";
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -57,7 +59,21 @@ class OnboardingScreen extends StatelessWidget {
                 children: [
                   Button1(
                     text: 'Get Started',
-                    onPressed: () {},
+                    onPressed: () {
+                      slideupBottomSheet(
+                        context,
+                        onLoginPressed: () {
+                          Navigator.pop(context); // Example action
+                        },
+                        onSignupPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CreateAccount()),
+                          );
+                        },
+                      );
+                    },
                     backgroundColor: AppColor.white,
                     width: 375.0,
                     padding: const EdgeInsets.all(20),
