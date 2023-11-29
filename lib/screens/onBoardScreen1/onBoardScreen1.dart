@@ -69,7 +69,7 @@ class OnboardingScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => CreateAccount()),
+                                builder: (context) => const CreateAccount()),
                           );
                         },
                       );
