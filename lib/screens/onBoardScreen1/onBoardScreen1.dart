@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_fizi_app/screens/authScreens/signin/signin.dart';
 import 'package:my_fizi_app/theme/colors.dart';
 import 'package:my_fizi_app/widgets/buttonsWidget/buttons.dart';
 import 'package:my_fizi_app/widgets/slideWidget/slideupModal.dart';
@@ -63,7 +64,11 @@ class OnboardingScreen extends StatelessWidget {
                       slideupBottomSheet(
                         context,
                         onLoginPressed: () {
-                          Navigator.pop(context); // Example action
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      Signin())); // Example action
                         },
                         onSignupPressed: () {
                           Navigator.push(
