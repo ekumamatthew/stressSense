@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_fizi_app/screens/authScreens/resetPassword/resetPassword.dart';
+import 'package:my_fizi_app/screens/dashboardScreens/layout/dashboardPage.dart';
 
 import 'package:my_fizi_app/theme/colors.dart';
 import 'package:my_fizi_app/widgets/buttonsWidget/buttons.dart';
@@ -29,11 +30,12 @@ class _SigninState extends State<Signin> {
   }
 
   void _handleSubmit() {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(builder: (context) => const CreateAccount()),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const Dashboard()),
+    );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

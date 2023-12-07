@@ -27,7 +27,7 @@ class OtpInput extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(
-          width: 40,
+          width: 54,
           child: TextFormField(
               initialValue: initialValue,
               decoration: InputDecoration(
