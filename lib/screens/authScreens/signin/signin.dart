@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_fizi_app/screens/authScreens/createAccount/createAccount.dart';
 import 'package:my_fizi_app/screens/authScreens/resetPassword/resetPassword.dart';
 import 'package:my_fizi_app/screens/dashboardScreens/layout/dashboardPage.dart';
 
@@ -140,12 +141,12 @@ class _SigninState extends State<Signin> {
                   const SizedBox(
                     height: 50,
                   ),
-                  const Row(
+                  Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text.rich(
+                      const Text.rich(
                         TextSpan(
                           children: [
                             TextSpan(
@@ -159,18 +160,24 @@ class _SigninState extends State<Signin> {
                                 letterSpacing: 0.03,
                               ),
                             ),
-                            TextSpan(
-                              text: ' Sign Up',
-                              style: TextStyle(
-                                color: AppColor.blue,
-                                fontSize: 16,
-                                fontFamily: 'Raleway',
-                                fontWeight: FontWeight.w600,
-                                height: 0.10,
-                                letterSpacing: 0.03,
-                              ),
-                            ),
                           ],
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const CreateAccount()),
+                          );
+                        },
+                        child: const Text(
+                          "Signup",
+                          textAlign: TextAlign.right,
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            color: AppColor.blue,
+                          ),
                         ),
                       ),
                     ],

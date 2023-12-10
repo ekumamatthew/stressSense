@@ -1,5 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:my_fizi_app/screens/authScreens/createAccount/component/createAccountForm.dart';
+import 'package:my_fizi_app/screens/authScreens/createAccount/component/verificationScreen.dart';
+import 'package:my_fizi_app/screens/authScreens/signin/signin.dart';
+import 'package:my_fizi_app/screens/authScreens/verifyEmail/verifyEmail.dart';
 import 'package:my_fizi_app/theme/colors.dart';
 import 'package:my_fizi_app/widgets/buttonsWidget/buttons.dart';
 
@@ -16,10 +21,10 @@ class StepperForm extends StatefulWidget {
   final int currentStep;
 
   const StepperForm({
-    Key? key,
+    super.key,
     required this.steps,
     this.currentStep = 0,
-  }) : super(key: key);
+  });
 
   @override
   _StepperFormState createState() => _StepperFormState();
@@ -33,26 +38,17 @@ class Step {
 }
 
 List<Step> mySteps = [
-  Step(
-    title: 'Step 1',
-    content: Column(
-      children: [AccountForm()],
-    ),
-  ),
+  Step(title: 'Step 1', content: AccountForm()),
   Step(
     title: 'Step 2',
-    content: const Column(
-      children: [
-        Text('This is Step 2'),
-        // Add other widgets for Step 2 content
-      ],
-    ),
+    content: VerifyEmail(),
   ),
   Step(
     title: 'Step 3',
     content: const Column(
       children: [
         Text('You have reached Step 3'),
+
         // Add other widgets for Step 3 content
       ],
     ),
@@ -67,6 +63,22 @@ class _StepperFormState extends State<StepperForm> {
     super.initState();
     _currentStep = widget.currentStep;
   }
+
+  void _goToNextStep() {
+    if (_currentStep < mySteps.length - 1) {
+      setState(() {
+        _currentStep++;
+      });
+    }
+  }
+
+  // void _goToPreviousStep() {
+  //   if (_currentStep > 0) {
+  //     setState(() {
+  //       _currentStep--;
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -222,8 +234,10 @@ class _StepperFormState extends State<StepperForm> {
                     height: 50,
                   ),
                   Button1(
-                    text: "Continue →",
-                    onPressed: () {},
+                    text: _currentStep < mySteps.length - 1
+                        ? "Continue →"
+                        : "Finish",
+                    onPressed: _goToNextStep,
                     backgroundColor: AppColor.blue,
                     width: 375.0,
                     padding: const EdgeInsets.all(20),
@@ -237,33 +251,44 @@ class _StepperFormState extends State<StepperForm> {
                   const SizedBox(
                     height: 30,
                   ),
-                  const Text.rich(
-                    TextSpan(
-                      children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text.rich(
                         TextSpan(
-                          text: 'Already have an account?',
+                          children: [
+                            TextSpan(
+                              text: 'Already have an account?',
+                              style: TextStyle(
+                                color: Color(0xFF2E3034),
+                                fontSize: 16,
+                                fontFamily: 'Raleway',
+                                fontWeight: FontWeight.w500,
+                                height: 0.10,
+                                letterSpacing: 0.03,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Signin()),
+                          );
+                        },
+                        child: const Text(
+                          "Log in",
+                          textAlign: TextAlign.right,
                           style: TextStyle(
-                            color: Color(0xFF2E3034),
-                            fontSize: 16,
-                            fontFamily: 'Raleway',
-                            fontWeight: FontWeight.w500,
-                            height: 0.10,
-                            letterSpacing: 0.03,
+                            fontWeight: FontWeight.w700,
+                            color: AppColor.blue,
                           ),
                         ),
-                        TextSpan(
-                          text: ' Log in',
-                          style: TextStyle(
-                            color: Color(0xFF0E47D8),
-                            fontSize: 16,
-                            fontFamily: 'Raleway',
-                            fontWeight: FontWeight.w600,
-                            height: 0.10,
-                            letterSpacing: 0.03,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   )
                 ],
               ),
