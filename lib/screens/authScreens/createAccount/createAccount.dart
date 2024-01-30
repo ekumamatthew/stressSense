@@ -15,11 +15,9 @@ class _CreateAccountState extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
         body: SafeArea(
-      child: StepperForm(
-        steps: [],
-      ),
+      child: StepperForm(),
     ));
   }
 }

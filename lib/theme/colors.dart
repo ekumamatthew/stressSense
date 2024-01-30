@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 
 class AppColor {
   static const white = Color(0xFFFFFFFF); // Added FF for alpha
-  static const blue = Color(0xFF0E47D8); // Added FF for alpha
-  static const yellow = Color(0xFFFAD411); // Added FF for alpha
+  static const blue = Color.fromARGB(255, 133, 157, 218); // Added FF for alpha
+  static const blue2 = Color(0xFF0E47D8);
+  static const red = Color.fromARGB(255, 235, 103, 67); // Added FF for alpha
   static const black = Color(0xFF000000); // Added FF for alpha
   static const gray = Color(0xFF575757); // Added FF for alpha
   static const success = Color(0xFF107F55); // Added FF for alpha

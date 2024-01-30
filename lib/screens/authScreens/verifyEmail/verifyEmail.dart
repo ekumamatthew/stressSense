@@ -41,7 +41,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                     child: Text(
                       'Verify your email',
                       style: TextStyle(
-                        color: Color(0xFF0E47D8),
+                        color: AppColor.gray,
                         fontSize: 28,
                         fontFamily: 'Ubuntu',
                         fontWeight: FontWeight.w500,
@@ -144,7 +144,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                         Text(
                           'Resend Code',
                           style: TextStyle(
-                            color: Color(0xFF0E47D8),
+                            color: AppColor.gray,
                             fontSize: 14,
                             fontFamily: 'Raleway',
                             fontWeight: FontWeight.w600,
@@ -171,7 +171,7 @@ class _VerifyEmailState extends State<VerifyEmail> {
                       backgroundColor: AppColor.blue,
                       width: 357,
                       padding: const EdgeInsets.all(16),
-                      textColor: AppColor.white,
+                      textColor: AppColor.black,
                       fontFamily: 'Raleway',
                       fontSize: 16,
                       fontWeight: FontWeight.w600,

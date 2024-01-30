@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:my_fizi_app/screens/onBoardScreen1/onBoardScreen1.dart';
+import 'package:my_fizi_app/screens/onBoardScreen/onBoardScreen1.dart';
 import 'package:my_fizi_app/theme/colors.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -10,10 +10,28 @@ class SplashScreen extends StatefulWidget {
   _SplashScreenState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _rotationAnimation;
+  late Animation<double> _scaleAnimation;
+
   @override
   void initState() {
     super.initState();
+
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(seconds: 3),
+    );
+
+    _rotationAnimation =
+        Tween<double>(begin: 0, end: 1).animate(_animationController);
+    _scaleAnimation =
+        Tween<double>(begin: 1, end: 0).animate(_animationController);
+
+    _animationController.forward();
+
     Timer(const Duration(seconds: 3), () {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (_) => const OnboardingScreen()),
@@ -23,16 +41,33 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: AppColor.blue,
       body: Center(
-        // Your splash screen content here
-        child: Text('my_Fizi_App',
-            style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-                color: AppColor.white)),
+        child: AnimatedBuilder(
+          animation: _animationController,
+          builder: (context, child) {
+            return Transform.rotate(
+              angle: _rotationAnimation.value * 2 * 3.14159, // 360 degrees
+              child: Transform.scale(
+                scale: _scaleAnimation.value,
+                child: child,
+              ),
+            );
+          },
+          child: Image.asset(
+            'assets/images/logoImages/aiImage.png',
+            width: 236.527,
+            height: 212.736,
+          ),
+        ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 }

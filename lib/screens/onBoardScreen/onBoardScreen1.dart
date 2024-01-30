@@ -22,15 +22,15 @@ class OnboardingScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Image.asset(
-                      'assets/images/logoImages/fizi_logo.png',
+                      'assets/images/logoImages/aiImage.png',
                       width: 236.527,
                       height: 212.736,
                     ),
                     const Text(
-                      'Simplify your',
+                      'StressSense ',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: AppColor.white,
+                        color: AppColor.black,
                         fontFamily: 'Ubuntu',
                         fontSize: 48,
                         fontWeight: FontWeight.w500,
@@ -39,10 +39,10 @@ class OnboardingScreen extends StatelessWidget {
                       ),
                     ),
                     const Text(
-                      'money matters',
+                      'Lab',
                       textAlign: TextAlign.center,
                       style: TextStyle(
-                        color: AppColor.white,
+                        color: AppColor.gray,
                         fontFamily: 'Ubuntu',
                         fontSize: 48,
                         fontWeight: FontWeight.w500,
@@ -82,7 +82,7 @@ class OnboardingScreen extends StatelessWidget {
                     backgroundColor: AppColor.white,
                     width: 375.0,
                     padding: const EdgeInsets.all(20),
-                    textColor: AppColor.blue,
+                    textColor: AppColor.black,
                     fontFamily: 'Raleway',
                     fontSize: 16.0,
                     fontWeight: FontWeight.w600,

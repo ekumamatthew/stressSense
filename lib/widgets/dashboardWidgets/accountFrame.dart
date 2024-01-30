@@ -1,174 +1,164 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:my_fizi_app/theme/colors.dart';
+import 'package:intl/intl.dart';
 
-class AccountWidget extends StatelessWidget {
-  const AccountWidget({super.key});
+class AccountWidget extends StatefulWidget {
+  const AccountWidget({Key? key}) : super(key: key);
+
+  @override
+  _AccountWidgetState createState() => _AccountWidgetState();
+}
+
+class _AccountWidgetState extends State<AccountWidget> {
+  final FlutterSecureStorage storage = FlutterSecureStorage();
+  String supervisorName = 'Loading...';
+  String mail = "";
+  String role = "";
+  String dateTimeString = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSupervisorName();
+    dateTimeString = getCurrentDateTime();
+    // print('Current DateTime: $dateTimeString');
+  }
+
+  Future<void> _loadSupervisorName() async {
+    String? name = await storage.read(key: 'name');
+    String? email = await storage.read(key: 'email');
+    String? roles = await storage.read(key: 'role');
+
+    print(name);
+    setState(() {
+      supervisorName = name ?? 'Default Supervisor Name';
+      mail = email ?? 'info@stresssend.lab';
+      role = roles ?? "";
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.30,
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.all(20),
-      decoration: const ShapeDecoration(
-        color: Color(0xFF0E47D8),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(16),
-            bottomRight: Radius.circular(16),
-          ),
-        ),
-        shadows: [
-          BoxShadow(
-            color: Color(0x0A000000),
-            blurRadius: 40,
-            offset: Offset(0, 4),
-            spreadRadius: 0,
-          )
-        ],
-      ),
-      child: Stack(
-        children: [
-          SizedBox(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 48,
-                      height: 48,
-                      // decoration: ShapeDecoration(
-                      //   // image: const DecorationImage(
-                      //   //   image:
-                      //   //       NetworkImage("https://via.placeholder.com/48x48"),
-                      //   //   fit: BoxFit.fill,
-                      //   // ),
-
-                      //   shape: RoundedRectangleBorder(
-                      //     borderRadius: BorderRadius.circular(200),
-                      //   ),
-                      // ),
-
-                      child: Image.asset(
-                        'assets/images/logoImages/profile.png',
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    const Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Howdy,',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 12,
-                            fontFamily: 'Raleway',
-                            fontWeight: FontWeight.w400,
-                            height: 0.12,
-                            letterSpacing: 0.02,
-                          ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Text(
-                          'John Doe',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 16,
-                            fontFamily: 'Raleway',
-                            fontWeight: FontWeight.w700,
-                            height: 0.09,
-                            letterSpacing: -0.16,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Container(
-                  width: 48,
-                  height: 48,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 28),
-                  decoration: ShapeDecoration(
-                    color: Colors.white.withOpacity(0.10000000149011612),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(400),
-                    ),
-                  ),
-                )
-              ],
+        height: MediaQuery.of(context).size.height * 0.20,
+        width: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.all(20),
+        decoration: const ShapeDecoration(
+          color: AppColor.blue,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(16),
+              bottomRight: Radius.circular(16),
             ),
           ),
-          const Center(
-            child: Column(
+          shadows: [
+            BoxShadow(
+              color: Color(0x0A000000),
+              blurRadius: 40,
+              offset: Offset(0, 4),
+              spreadRadius: 0,
+            )
+          ],
+        ),
+        child: Stack(
+          children: [
+            buildUserInfoSection(),
+            Positioned(
+              left: 0,
+              right: 0,
+              bottom: 0,
+              child: buildDateSection(), // Updated call without any arguments
+            ),
+          ],
+        ));
+  }
+
+  Widget buildUserInfoSection() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 48,
+              height: 48,
+              child: Image.asset('assets/images/logoImages/profile.png'),
+            ),
+            const SizedBox(width: 10),
+            Column(
               mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Current Balance',
-                  style: TextStyle(
-                    color: Color(0xFFCEDAF7),
+                  role,
+                  style: const TextStyle(
+                    color: Colors.black,
                     fontSize: 12,
                     fontFamily: 'Raleway',
                     fontWeight: FontWeight.w400,
-                    height: 0.12,
                     letterSpacing: 0.02,
                   ),
                 ),
-                SizedBox(height: 25),
-                Text.rich(
-                  TextSpan(
-                    children: [
-                      TextSpan(
-                        text: '₦250,000',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 32,
-                          fontFamily: 'Ubuntu',
-                          fontWeight: FontWeight.w500,
-                          height: 0.04,
-                          letterSpacing: -0.96,
-                        ),
-                      ),
-                      TextSpan(
-                        text: '.00',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 28,
-                          fontFamily: 'Ubuntu',
-                          fontWeight: FontWeight.w500,
-                          height: 0.04,
-                          letterSpacing: -1.12,
-                        ),
-                      ),
-                    ],
+                SizedBox(height: 5),
+                Text(
+                  supervisorName, // Dynamic supervisor name
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontFamily: 'Raleway',
+                    fontWeight: FontWeight.w700,
                   ),
                 ),
-                SizedBox(height: 25),
                 Text(
-                  'Today, 20th June, 2023',
-                  style: TextStyle(
-                    color: Color(0xFFCEDAF7),
-                    fontSize: 10,
+                  mail, // Dynamic supervisor name
+                  style: const TextStyle(
+                    color: Colors.black,
+                    fontSize: 14,
                     fontFamily: 'Raleway',
                     fontWeight: FontWeight.w400,
-                    height: 0.14,
                     letterSpacing: 0.02,
                   ),
                 ),
               ],
             ),
+          ],
+        ),
+        Container(
+          width: 48,
+          height: 48,
+          decoration: ShapeDecoration(
+            color: Colors.white.withOpacity(0.1),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(400),
+            ),
           ),
-        ],
+        ),
+      ],
+    );
+  }
+
+  Widget buildDateSection() {
+    return Center(
+      child: Text(
+        dateTimeString, // Dynamic current date and time
+        style: TextStyle(
+          color: AppColor.black,
+          fontSize: 10,
+          fontFamily: 'Raleway',
+          fontWeight: FontWeight.w400,
+        ),
       ),
     );
+  }
+
+  String getCurrentDateTime() {
+    DateTime now = DateTime.now();
+    // Example format: 'Today, 23rd January, 2024, 10:00 AM'
+    return DateFormat('EEEE, d MMMM, yyyy, h:mm a').format(now);
   }
 }

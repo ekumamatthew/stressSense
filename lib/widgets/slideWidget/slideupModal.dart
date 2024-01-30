@@ -10,7 +10,7 @@ void slideupBottomSheet(BuildContext context,
     backgroundColor: AppColor.white,
     builder: (BuildContext bc) {
       return Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
@@ -40,7 +40,7 @@ void slideupBottomSheet(BuildContext context,
               backgroundColor: AppColor.white,
               width: 375.0,
               padding: const EdgeInsets.all(20),
-              textColor: AppColor.blue,
+              textColor: AppColor.black,
               fontFamily: 'Raleway',
               fontSize: 16.0,
               fontWeight: FontWeight.w600,

@@ -11,13 +11,18 @@ class CustomInput extends StatelessWidget {
   final Function(String) onChanged;
   final String tag;
   final String label;
+  final String? errorText; // Optional error text for validation
+  final String? Function(String?)? validator;
 
-  const CustomInput(
-      {super.key,
-      required this.initialValue,
-      required this.onChanged,
-      required this.label,
-      required this.tag});
+  CustomInput({
+    Key? key,
+    required this.initialValue,
+    required this.onChanged,
+    required this.label,
+    required this.tag,
+    this.errorText, // Optional error text for validation
+    this.validator, // Custom validation function
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -60,15 +65,18 @@ class CustomInput extends StatelessWidget {
           height: 10,
         ),
         TextFormField(
-            initialValue: initialValue,
-            decoration: InputDecoration(
-              labelText: label,
-              border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide:
-                      const BorderSide(width: 1, color: Color(0xFFF0F0F0))),
-            ),
-            onChanged: onChanged),
+          initialValue: initialValue,
+          decoration: InputDecoration(
+            labelText: label,
+            border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8),
+                borderSide:
+                    const BorderSide(width: 1, color: Color(0xFFF0F0F0))),
+            errorText: errorText, // Display validation error text
+          ),
+          onChanged: onChanged,
+          validator: validator,
+        ),
       ],
     );
   }

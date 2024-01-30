@@ -39,7 +39,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           ),
                           Text('Reset Your Password',
                               style: TextStyle(
-                                color: Color(0xFF0E47D8),
+                                color: AppColor.gray,
                                 fontSize: 28,
                                 fontFamily: 'Ubuntu',
                                 fontWeight: FontWeight.w500,
@@ -88,7 +88,7 @@ class _ResetPasswordState extends State<ResetPassword> {
                           backgroundColor: AppColor.blue,
                           width: 357,
                           padding: const EdgeInsets.all(16),
-                          textColor: AppColor.white,
+                          textColor: AppColor.black,
                           fontFamily: 'Raleway',
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
