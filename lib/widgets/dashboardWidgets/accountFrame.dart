@@ -41,7 +41,7 @@ class _AccountWidgetState extends State<AccountWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: MediaQuery.of(context).size.height * 0.20,
+        height: MediaQuery.of(context).size.height * 0.17,
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.all(20),
         decoration: const ShapeDecoration(
@@ -86,7 +86,7 @@ class _AccountWidgetState extends State<AccountWidget> {
             SizedBox(
               width: 48,
               height: 48,
-              child: Image.asset('assets/images/logoImages/profile.png'),
+              child: Image.asset('assets/images/logoImages/aiImage.png'),
             ),
             const SizedBox(width: 10),
             Column(

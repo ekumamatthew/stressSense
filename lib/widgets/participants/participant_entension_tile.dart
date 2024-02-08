@@ -4,6 +4,7 @@ import 'package:my_fizi_app/data/participants.dart';
 import 'package:my_fizi_app/theme/colors.dart';
 import 'package:my_fizi_app/widgets/participants/participantDetails.dart';
 import 'package:my_fizi_app/widgets/speedometer/speedometer.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class ParticipantExpansionTile extends StatefulWidget {
   final ParticipantData participant;
@@ -36,6 +37,7 @@ class _ParticipantExpansionTileState extends State<ParticipantExpansionTile> {
   }
 
   Future<void> _fetchRole() async {
+    final storage = FlutterSecureStorage();
     String? role = await storage.read(key: 'role');
     setState(() {
       userRole = role ?? '';

@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:my_fizi_app/data/participants.dart';
@@ -19,10 +18,12 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  final storage = FlutterSecureStorage();
+  final TextEditingController _searchController = TextEditingController();
+  final storage = const FlutterSecureStorage();
   late Future<List<ParticipantData>> _participantsFuture;
-
+  List<ParticipantData> _allParticipants = [];
   String userRole = '';
+
   @override
   void initState() {
     super.initState();
@@ -40,17 +41,21 @@ class _DashboardState extends State<Dashboard> {
         url,
         headers: {'Authorization': 'Bearer $userToken'},
       );
-
       var jsonResponse = jsonDecode(response.body);
-      var nd = jsonResponse['data'];
-      // var rd = nd['episodes'];
-
       if (response.statusCode == 200) {
         if (jsonResponse['success']) {
           var data = jsonResponse['data'] as List;
-          participantsList = data
+          // participantsList = data
+          //     .map<ParticipantData>((json) => ParticipantData.fromJson(json))
+          //     .toList()
+          //     .reversed
+          //     .toList();
+          _allParticipants = data
               .map<ParticipantData>((json) => ParticipantData.fromJson(json))
+              .toList()
+              .reversed
               .toList();
+          return _allParticipants;
         } else {
           print('API returned success: false');
         }
@@ -61,6 +66,24 @@ class _DashboardState extends State<Dashboard> {
       print('Error fetching participants: $e');
     }
     return participantsList;
+  }
+
+  void _filterParticipants() {
+    String searchQuery = _searchController.text.toLowerCase();
+    List<ParticipantData> filteredParticipants;
+    if (searchQuery.isNotEmpty) {
+      filteredParticipants = _allParticipants
+          .where((participant) =>
+              participant.name.toLowerCase().contains(searchQuery))
+          .toList();
+    } else {
+      filteredParticipants = List.from(
+          _allParticipants);
+    }
+    setState(() {
+      _participantsFuture = Future.value(
+          filteredParticipants); 
+    });
   }
 
   Future<void> _refreshParticipants() async {
@@ -90,7 +113,7 @@ class _DashboardState extends State<Dashboard> {
                 future: _participantsFuture,
                 builder: (context, snapshot) {
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator());
                   } else if (snapshot.hasError) {
                     return Center(child: Text("Error: ${snapshot.error}"));
                   } else if (snapshot.hasData) {
@@ -107,7 +130,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                     );
                   } else {
-                    return Center(child: Text("No participants found"));
+                    return const Center(child: Text("No participants found"));
                   }
                 },
               ),
@@ -116,34 +139,65 @@ class _DashboardState extends State<Dashboard> {
           ],
         ),
       ),
-      // bottomNavigationBar: const BottomNavigation()
+    );
+  }
+
+  Widget _buildSearchField() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
+      child: SizedBox(
+        height: 35,
+        child: TextField(
+          controller: _searchController,
+          decoration: InputDecoration(
+            labelText: 'Search Participants',
+            hintText: 'Enter participant name',
+            prefixIcon: const Icon(Icons.search),
+            contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
+            border: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              borderSide: BorderSide.none,
+            ),
+            filled: true,
+            fillColor: Colors.grey[200],
+          ),
+          onChanged: (query) {
+            _filterParticipants();
+          },
+        ),
+      ),
     );
   }
 
   Widget _participantsHeader(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: Row(
-        children: <Widget>[
-          const Expanded(
-            child: Text(
-              'Participants',
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.bold,
-              ),
+      child: Column(
+        children: [
+          const Text(
+            "Participant",
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 24,
             ),
           ),
-          if (userRole == 'supervisor')
-            ElevatedButton(
-              onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                      builder: (context) => AddParticipantScreen()),
-                );
-              },
-              child: const Text('Add New Participant'),
-            ),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: _buildSearchField(),
+              ),
+              if (userRole == 'supervisor')
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                          builder: (context) => AddParticipantScreen()),
+                    );
+                  },
+                  child: const Text('Add New Participant'),
+                ),
+            ],
+          ),
         ],
       ),
     );

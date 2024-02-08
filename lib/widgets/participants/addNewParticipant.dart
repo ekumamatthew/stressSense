@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
+import 'package:my_fizi_app/screens/dashboardScreens/layout/dashboardPage.dart';
 import 'package:my_fizi_app/widgets/inputs/customInputs.dart';
 import 'package:my_fizi_app/widgets/loading/loading.dart';
 import 'package:my_fizi_app/widgets/loading/snacbar.dart';
@@ -19,7 +20,7 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
   bool _isSubmitting = false;
   final storage = FlutterSecureStorage();
   // Other participant attributes as needed
-  void _handlePasswordChanged(String newParticipant) {
+  void _handleNameChanged(String newParticipant) {
     setState(() {
       participant = newParticipant;
     });
@@ -51,7 +52,10 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
           });
 
           CustomSnackbar.show(context, "Suuccess: Participant Added");
-          Navigator.pop(context);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const Dashboard()),
+          );
         } else {
           var responseData = json.decode(response.body);
           setState(() {
@@ -99,7 +103,7 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
                   SizedBox(height: 40),
                   CustomInput(
                     initialValue: participant,
-                    onChanged: _handlePasswordChanged,
+                    onChanged: _handleNameChanged,
                     label: 'Participant',
                     tag: 'Paticipant Name',
                     validator: (value) {
