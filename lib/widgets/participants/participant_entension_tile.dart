@@ -1,10 +1,11 @@
 // file: lib/widgets/participant_expansion_tile.dart
 import 'package:flutter/material.dart';
-import 'package:my_fizi_app/data/participants.dart';
-import 'package:my_fizi_app/theme/colors.dart';
-import 'package:my_fizi_app/widgets/participants/participantDetails.dart';
-import 'package:my_fizi_app/widgets/speedometer/speedometer.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:stressSense_lab/data/participants.dart';
+import 'package:stressSense_lab/theme/colors.dart';
+import 'package:stressSense_lab/widgets/comments/comment.dart';
+import 'package:stressSense_lab/widgets/participants/participantDetails.dart';
+import 'package:stressSense_lab/widgets/speedometer/speedometer.dart';
 
 class ParticipantExpansionTile extends StatefulWidget {
   final ParticipantData participant;
@@ -44,6 +45,8 @@ class _ParticipantExpansionTileState extends State<ParticipantExpansionTile> {
     });
   }
 
+  
+
   @override
   Widget build(BuildContext context) {
     double averageNASA = calculateAverageNASA(widget.participant.episodes);
@@ -80,17 +83,39 @@ class _ParticipantExpansionTileState extends State<ParticipantExpansionTile> {
                                   : 'Minimal Stress',
                   // Additional styling can be applied here
                 ),
-                if (userRole == 'supervisor')
-                  ElevatedButton(
+                Row(
+                  mainAxisAlignment:
+                      MainAxisAlignment.spaceEvenly, // Adjust spacing as needed
+                  children: [
+                    if (userRole == 'supervisor')
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => ParticipantDetailScreen(
+                                  participant: widget.participant),
+                            ),
+                          );
+                        },
+                        child: const Text('View Details'),
+                      ),
+                    ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (context) => ParticipantDetailScreen(
-                                participant: widget.participant),
+                            builder: (context) => CommentDetailScreen(
+                              userId: widget.participant.id,
+                              userName: widget.participant.name,
+                            ),
                           ),
                         );
-                      },
-                      child: const Text('View Details')),
+                      }, // Function to show modal
+                      child: Text(userRole == 'supervisor'
+                          ? 'Add Comment'
+                          : 'View Comments'),
+                    ),
+                  ],
+                ),
                 const SizedBox(
                   height: 10,
                 )

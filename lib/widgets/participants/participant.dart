@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_fizi_app/data/participants.dart';
-import 'package:my_fizi_app/widgets/participants/participant_entension_tile.dart';
+import 'package:stressSense_lab/data/participants.dart';
+import 'package:stressSense_lab/widgets/participants/participant_entension_tile.dart';
 
 class ParticipantsListWidget extends StatelessWidget {
   final List<ParticipantData> participantsList;

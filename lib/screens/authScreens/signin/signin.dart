@@ -4,15 +4,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:my_fizi_app/screens/authScreens/createAccount/createAccount.dart';
-import 'package:my_fizi_app/screens/authScreens/resetPassword/resetPassword.dart';
-import 'package:my_fizi_app/screens/dashboardScreens/layout/dashboardPage.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_fizi_app/theme/colors.dart';
-import 'package:my_fizi_app/widgets/buttonsWidget/buttons.dart';
-import 'package:my_fizi_app/widgets/inputs/customInputs.dart';
-import 'package:my_fizi_app/widgets/loading/loading.dart';
-import 'package:my_fizi_app/widgets/loading/snacbar.dart';
+import 'package:stressSense_lab/screens/authScreens/createAccount/createAccount.dart';
+import 'package:stressSense_lab/screens/authScreens/resetPassword/resetPassword.dart';
+import 'package:stressSense_lab/screens/dashboardScreens/layout/dashboardPage.dart';
+import 'package:stressSense_lab/theme/colors.dart';
+import 'package:stressSense_lab/widgets/buttonsWidget/buttons.dart';
+import 'package:stressSense_lab/widgets/inputs/customInputs.dart';
+import 'package:stressSense_lab/widgets/loading/loading.dart';
+import 'package:stressSense_lab/widgets/loading/snacbar.dart';
 
 class Signin extends StatefulWidget {
   const Signin({super.key});
@@ -54,7 +54,7 @@ class _SigninState extends State<Signin> {
     setState(() {
       _isSubmitting = true; // Start loading
     });
-    var url = Uri.parse('https://stresslysis.onrender.com/api/auth/login');
+    var url = Uri.parse('https://stress-be.onrender.com/api/auth/login');
     var data = {'password': newpass, 'username': newuser};
     // print(data);
     try {
@@ -66,16 +66,19 @@ class _SigninState extends State<Signin> {
       String? name = responseData['user']['name'];
       String? email = responseData['user']['username'];
       String? role = responseData['user']['role'];
+      String? userId = responseData['user']['_id'];
 
       if (responseData['success']) {
         setState(() {
           _isSubmitting = false; // Stop loading on error as well
         });
+        print(responseData);
         await Future.wait([
           storage.write(key: 'userToken', value: token),
           storage.write(key: 'name', value: name),
           storage.write(key: 'email', value: email),
           storage.write(key: 'role', value: role),
+          storage.write(key: 'userId', value: userId),
         ]);
 
         CustomSnackbar.show(context, "Suuccess: Successfully Signin");

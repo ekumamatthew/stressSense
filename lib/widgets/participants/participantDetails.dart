@@ -3,11 +3,10 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:my_fizi_app/data/participants.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_fizi_app/screens/dashboardScreens/layout/dashboardPage.dart';
-import 'package:my_fizi_app/widgets/loading/loading.dart';
-import 'package:my_fizi_app/widgets/loading/snacbar.dart';
+import 'package:stressSense_lab/data/participants.dart';
+import 'package:stressSense_lab/screens/dashboardScreens/layout/dashboardPage.dart';
+import 'package:stressSense_lab/widgets/loading/snacbar.dart';
 
 class ParticipantDetailScreen extends StatefulWidget {
   final ParticipantData participant;
@@ -51,7 +50,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       var url = Uri.parse(
-          'https://stresslysis.onrender.com/api/participants/${widget.participant.id}/episodes');
+          'https://stress-be.onrender.com/api/participants/${widget.participant.id}/episodes');
       try {
         var response = await http.post(
           url,
@@ -280,7 +279,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     String? userToken = await storage.read(key: 'userToken');
     var data = {'NASA': nasaValue, 'STAI': "1"};
     var url = Uri.parse(
-        'https://stresslysis.onrender.com/api/participants/$participantId/episodes/$epiindex.');
+        'https://stress-be.onrender.com/api/participants/$participantId/episodes/$epiindex.');
     try {
       var response = await http.patch(url,
           headers: {'Authorization': 'Bearer $userToken'}, body: data);
@@ -297,7 +296,6 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
         print('$errorMessage');
       }
     } catch (e) {
-      print('$e');
       CustomSnackbar.show(context, "Error: Failed to Update Episode. $e");
     }
   }
@@ -333,7 +331,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     var epiindex = episodeIndex + 1;
     String? userToken = await storage.read(key: 'userToken');
     var url = Uri.parse(
-        'https://stresslysis.onrender.com/api/participants/$participantId/episodes/$epiindex.');
+        'https://stress-be.onrender.com/api/participants/$participantId/episodes/$epiindex.');
     try {
       var response = await http.delete(
         url,
@@ -358,7 +356,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
   void _handleDelete() async {
     String? userToken = await storage.read(key: 'userToken');
     var url = Uri.parse(
-        'https://stresslysis.onrender.com/api/participants/${widget.participant.id}');
+        'https://stress-be.onrender.com/api/participants/${widget.participant.id}');
 
     try {
       var response = await http.delete(

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_fizi_app/widgets/speedometer/customPaint.dart';
+import 'package:stressSense_lab/widgets/speedometer/customPaint.dart';
 
 class SpeedometerWidget extends StatelessWidget {
   final double averageNASA;

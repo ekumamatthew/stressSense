@@ -1,14 +1,12 @@
 import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:my_fizi_app/data/participants.dart';
-import 'package:my_fizi_app/widgets/dashboardWidgets/Table/tabTable.dart';
-import 'package:my_fizi_app/widgets/dashboardWidgets/accountFrame.dart';
-import 'package:my_fizi_app/widgets/dashboardWidgets/bottomNavigation.dart';
-import 'package:my_fizi_app/widgets/participants/addNewParticipant.dart';
-import 'package:my_fizi_app/widgets/participants/participant.dart';
 import 'package:http/http.dart' as http;
-import 'package:my_fizi_app/widgets/participants/participant_entension_tile.dart';
+import 'package:stressSense_lab/data/participants.dart';
+import 'package:stressSense_lab/widgets/dashboardWidgets/accountFrame.dart';
+import 'package:stressSense_lab/widgets/participants/addNewParticipant.dart';
+import 'package:stressSense_lab/widgets/participants/participant_entension_tile.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -36,7 +34,7 @@ class _DashboardState extends State<Dashboard> {
     List<ParticipantData> participantsList = [];
     String? userToken = await storage.read(key: 'userToken');
     try {
-      var url = Uri.parse('https://stresslysis.onrender.com/api/participants');
+      var url = Uri.parse('https://stress-be.onrender.com/api/participants');
       var response = await http.get(
         url,
         headers: {'Authorization': 'Bearer $userToken'},
@@ -77,12 +75,10 @@ class _DashboardState extends State<Dashboard> {
               participant.name.toLowerCase().contains(searchQuery))
           .toList();
     } else {
-      filteredParticipants = List.from(
-          _allParticipants);
+      filteredParticipants = List.from(_allParticipants);
     }
     setState(() {
-      _participantsFuture = Future.value(
-          filteredParticipants); 
+      _participantsFuture = Future.value(filteredParticipants);
     });
   }
 

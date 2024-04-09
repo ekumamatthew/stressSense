@@ -1,17 +1,17 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:my_fizi_app/data/disclaimer.dart';
-import 'package:my_fizi_app/screens/authScreens/createAccount/component/createAccountForm.dart';
-import 'package:my_fizi_app/screens/authScreens/signin/signin.dart';
-import 'package:my_fizi_app/theme/colors.dart';
-import 'package:my_fizi_app/widgets/buttonsWidget/buttons.dart';
-import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:my_fizi_app/widgets/loading/loading.dart';
-import 'package:my_fizi_app/widgets/loading/snacbar.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:http/http.dart' as http;
+import 'package:stressSense_lab/data/disclaimer.dart';
+import 'package:stressSense_lab/screens/authScreens/createAccount/component/createAccountForm.dart';
+import 'package:stressSense_lab/screens/authScreens/signin/signin.dart';
+import 'package:stressSense_lab/theme/colors.dart';
+import 'package:stressSense_lab/widgets/buttonsWidget/buttons.dart';
+import 'package:stressSense_lab/widgets/loading/loading.dart';
+import 'package:stressSense_lab/widgets/loading/snacbar.dart';
 
 class StepperForm extends StatefulWidget {
   final int currentStep;
@@ -72,7 +72,7 @@ class _StepperFormState extends State<StepperForm> {
     var data = {'name': name, 'password': password, 'username': email};
     // print(data);
     var url = Uri.parse(
-        'https://stresslysis.onrender.com/api/auth/register'); // Adjust the endpoint as necessary
+        'https://stress-be.onrender.com/api/auth/register'); // Adjust the endpoint as necessary
     try {
       var response = await http.post(url, body: data);
       var successResponse = json.decode(response.body);

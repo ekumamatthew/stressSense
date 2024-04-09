@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_fizi_app/theme/colors.dart';
-import 'package:my_fizi_app/widgets/inputs/customInputs.dart';
+import 'package:stressSense_lab/theme/colors.dart';
+import 'package:stressSense_lab/widgets/inputs/customInputs.dart';
 
 class AccountFormData {
   String fullName;

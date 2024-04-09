@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:my_fizi_app/screens/onBoardScreen/onBoardScreen1.dart';
-import 'package:my_fizi_app/theme/colors.dart';
+import 'package:stressSense_lab/screens/onBoardScreen/onBoardScreen1.dart';
+import 'package:stressSense_lab/theme/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});

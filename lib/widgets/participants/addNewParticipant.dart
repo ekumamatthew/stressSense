@@ -1,11 +1,12 @@
 import 'dart:convert';
+
+import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
-import 'package:my_fizi_app/screens/dashboardScreens/layout/dashboardPage.dart';
-import 'package:my_fizi_app/widgets/inputs/customInputs.dart';
-import 'package:my_fizi_app/widgets/loading/loading.dart';
-import 'package:my_fizi_app/widgets/loading/snacbar.dart';
+import 'package:stressSense_lab/screens/dashboardScreens/layout/dashboardPage.dart';
+import 'package:stressSense_lab/widgets/inputs/customInputs.dart';
+import 'package:stressSense_lab/widgets/loading/loading.dart';
+import 'package:stressSense_lab/widgets/loading/snacbar.dart';
 
 class AddParticipantScreen extends StatefulWidget {
   AddParticipantScreen({super.key});
@@ -34,7 +35,7 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
       setState(() {
         _isSubmitting = true; // Start loading
       });
-      var url = Uri.parse('https://stresslysis.onrender.com/api/participants');
+      var url = Uri.parse('https://stress-be.onrender.com/api/participants');
 
       var data = {'name': participant};
 

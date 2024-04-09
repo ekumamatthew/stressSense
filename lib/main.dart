@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:my_fizi_app/screens/dashboardScreens/layout/dashboardPage.dart';
-import 'package:my_fizi_app/screens/onBoardScreen/onBoardScreen1.dart';
-import 'package:my_fizi_app/screens/splashScreen/splashScreen.dart';
+import 'package:stressSense_lab/screens/dashboardScreens/layout/dashboardPage.dart';
+import 'package:stressSense_lab/screens/onBoardScreen/onBoardScreen1.dart';
+import 'package:stressSense_lab/screens/splashScreen/splashScreen.dart';
 
 void main() {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const SplashScreen(),
       routes: {
-        '/onboarding': (context) => OnboardingScreen(),
-        '/dashboard': (context) => Dashboard(),
+        '/onboarding': (context) => const OnboardingScreen(),
+        '/dashboard': (context) => const Dashboard(),
         // Add other routes as needed
       },
     );

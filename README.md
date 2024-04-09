@@ -1,4 +1,4 @@
-# my_fizi_app
+# stressSense_lab
 
 Artifitial intelligience meets Fintech and InsurTech.
 

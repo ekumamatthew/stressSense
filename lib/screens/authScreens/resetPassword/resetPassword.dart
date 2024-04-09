@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_fizi_app/screens/authScreens/verifyEmail/verifyEmail.dart';
-import 'package:my_fizi_app/theme/colors.dart';
-import 'package:my_fizi_app/widgets/buttonsWidget/buttons.dart';
-import 'package:my_fizi_app/widgets/inputs/customInputs.dart';
+import 'package:stressSense_lab/screens/authScreens/verifyEmail/verifyEmail.dart';
+import 'package:stressSense_lab/theme/colors.dart';
+import 'package:stressSense_lab/widgets/buttonsWidget/buttons.dart';
+import 'package:stressSense_lab/widgets/inputs/customInputs.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});

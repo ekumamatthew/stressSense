@@ -1,4 +1,4 @@
-package com.fizi_mobile.my_fizi_app
+package com.fizi_mobile.stressSense_lab
 
 import io.flutter.embedding.android.FlutterActivity
 

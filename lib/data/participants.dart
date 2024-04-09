@@ -14,9 +14,6 @@ class ParticipantData {
       {required this.id, required this.name, required this.episodes});
 
   factory ParticipantData.fromJson(Map<String, dynamic> json) {
-    // var episodesList =
-    //     (json['episodes'] as List).map((e) => EpisodeData.fromJson(e)).toList();
-
     var episodesList = json['episodes'] as List<dynamic>? ?? [];
     List<EpisodeData> episodes =
         episodesList.map((e) => EpisodeData.fromJson(e)).toList();

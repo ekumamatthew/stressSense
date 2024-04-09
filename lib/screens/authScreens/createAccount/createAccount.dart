@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:my_fizi_app/theme/colors.dart';
-import 'package:my_fizi_app/theme/colors.dart';
-import 'package:my_fizi_app/widgets/stepperWidget/stepper.dart';
+import 'package:stressSense_lab/theme/colors.dart';
+import 'package:stressSense_lab/theme/colors.dart';
+import 'package:stressSense_lab/widgets/stepperWidget/stepper.dart';
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});

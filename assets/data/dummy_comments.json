@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "id": "1",
+      "userId": "user1",
+      "title": "Great Experience",
+      "body": "I had a fantastic time using this app. Highly recommend it!",
+      "timestamp": "2024-03-07T00:44:38.431900"
+    },
+    {
+      "id": "2",
+      "userId": "user2",
+      "title": "Needs Improvement",
+      "body": "The app crashes frequently on my device. Please fix this issue.",
+      "timestamp": "2024-03-06T00:44:38.431920"
+    },
+    {
+      "id": "3",
+      "userId": "user3",
+      "title": "Awesome Support",
+      "body": "Customer support was very helpful and resolved my problem quickly.",
+      "timestamp": "2024-03-05T00:44:38.431926"
+    }
+  ],
+  "success": true
+}

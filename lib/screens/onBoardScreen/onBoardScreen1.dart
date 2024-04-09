@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:my_fizi_app/screens/authScreens/signin/signin.dart';
-import 'package:my_fizi_app/theme/colors.dart';
-import 'package:my_fizi_app/widgets/buttonsWidget/buttons.dart';
-import 'package:my_fizi_app/widgets/slideWidget/slideupModal.dart';
-import "package:my_fizi_app/screens/authScreens/createAccount/createAccount.dart";
+import 'package:stressSense_lab/screens/authScreens/signin/signin.dart';
+import 'package:stressSense_lab/theme/colors.dart';
+import 'package:stressSense_lab/widgets/buttonsWidget/buttons.dart';
+import 'package:stressSense_lab/widgets/slideWidget/slideupModal.dart';
+import "package:stressSense_lab/screens/authScreens/createAccount/createAccount.dart";
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});

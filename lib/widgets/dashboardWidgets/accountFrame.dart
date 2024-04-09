@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:my_fizi_app/theme/colors.dart';
+import 'package:stressSense_lab/theme/colors.dart';
 import 'package:intl/intl.dart';
 
 class AccountWidget extends StatefulWidget {
