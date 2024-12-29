@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class TransactionTable extends StatelessWidget {
+  const TransactionTable({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -29,6 +31,8 @@ class TransactionTable extends StatelessWidget {
 }
 
 class TransactionHistory extends StatelessWidget {
+  const TransactionHistory({super.key});
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -61,13 +65,13 @@ class TransactionItem extends StatelessWidget {
   final Color color;
 
   const TransactionItem({
-    Key? key,
+    super.key,
     required this.icon,
     required this.title,
     required this.subtitle,
     required this.amount,
     required this.color,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -84,9 +88,11 @@ class TransactionItem extends StatelessWidget {
 }
 
 class InsuranceHistory extends StatelessWidget {
+  const InsuranceHistory({super.key});
+
   @override
   Widget build(BuildContext context) {
     // Placeholder for the content of the Insurance History tab
-    return Center(child: Text('Insurance History Content'));
+    return const Center(child: Text('Insurance History Content'));
   }
 }

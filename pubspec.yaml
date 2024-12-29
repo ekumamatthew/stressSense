@@ -1,4 +1,4 @@
-name: stressSense_lab
+name: neuroTrack
 description: Artifitial intelligience meets Fintech and InsurTech.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -60,7 +60,7 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/logoImages/aiImage.png"
+  image_path: "assets/images/logoImages/neurotrack.jpg"
 
 flutter:
   # The following line ensures that the Material Icons font is

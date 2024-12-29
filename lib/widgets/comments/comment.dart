@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:stressSense_lab/data/commentData.dart';
-import 'package:stressSense_lab/widgets/loading/snacbar.dart';
+import 'package:neuroTrack/data/commentData.dart';
+import 'package:neuroTrack/theme/colors.dart';
+import 'package:neuroTrack/widgets/loading/snacbar.dart';
 
 class CommentDetailScreen extends StatefulWidget {
   final String userId;
   final String userName;
 
-  CommentDetailScreen({Key? key, required this.userId, this.userName = ''})
-      : super(key: key);
+  const CommentDetailScreen(
+      {super.key, required this.userId, this.userName = ''});
 
   @override
   _CommentDetailScreenState createState() => _CommentDetailScreenState();
@@ -21,8 +22,8 @@ class CommentDetailScreen extends StatefulWidget {
 class _CommentDetailScreenState extends State<CommentDetailScreen> {
   String userRole = '';
   bool _isLoading = true;
-  bool _isSubmitting = false;
-  final storage = FlutterSecureStorage();
+  final bool _isSubmitting = false;
+  final storage = const FlutterSecureStorage();
   List<CommentData> _comments = [];
 
   @override
@@ -33,7 +34,7 @@ class _CommentDetailScreenState extends State<CommentDetailScreen> {
   }
 
   Future<void> _fetchRole() async {
-    final storage = FlutterSecureStorage();
+    final storage = const FlutterSecureStorage();
     String? role = await storage.read(key: 'role');
     setState(() {
       userRole = role ?? '';
@@ -45,7 +46,7 @@ class _CommentDetailScreenState extends State<CommentDetailScreen> {
     String? participantId = widget.userId.toString();
     try {
       var url = Uri.parse(
-          'https://stress-be.onrender.com/api/participants/$participantId/comment');
+          'https://stress-bee.onrender.com/api/participants/$participantId/comment');
       var response = await http.get(
         url,
         headers: {'Authorization': 'Bearer $userToken'},
@@ -90,7 +91,7 @@ class _CommentDetailScreenState extends State<CommentDetailScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
-                  children: [Text("Supervisor: "), Text(comment.body)],
+                  children: [const Text("Supervisor: "), Text(comment.body)],
                 ),
                 const SizedBox(height: 4),
                 Text(
@@ -107,39 +108,55 @@ class _CommentDetailScreenState extends State<CommentDetailScreen> {
       ),
       floatingActionButton: userRole == 'supervisor'
           ? FloatingActionButton(
+              backgroundColor: AppColor.blue,
               onPressed: _showAddCommentDialog,
-              child: Icon(Icons.add),
               tooltip: 'Add Comment',
+              child: const Icon(
+                Icons.add,
+                color: AppColor.white,
+              ),
             )
           : null,
     );
   }
 
   void _showAddCommentDialog() {
-    TextEditingController _commentController = TextEditingController();
+    TextEditingController commentController = TextEditingController();
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text('Add Comment'),
+          backgroundColor: AppColor.blue.withOpacity(0.5),
+          title: const Text(
+            'Add Comment',
+            style: TextStyle(color: AppColor.white),
+          ),
           content: TextField(
-            controller: _commentController,
-            decoration:
-                const InputDecoration(hintText: "Enter your comment here"),
+            cursorColor: AppColor.white,
+            style: TextStyle(color: AppColor.white),
+            controller: commentController,
+            decoration: const InputDecoration(
+                hintText: "Enter your comment here", fillColor: AppColor.white),
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancel'),
+              child: const Text(
+                'Cancel',
+                style: TextStyle(color: AppColor.black),
+              ),
               onPressed: () {
                 Navigator.of(context).pop();
               },
             ),
             TextButton(
-              child: const Text('Submit'),
+              child: const Text(
+                'Submit',
+                style: TextStyle(color: AppColor.white),
+              ),
               onPressed: () {
-                if (_commentController.text.isNotEmpty) {
-                  _submitComment(_commentController.text).then((_) {
-                    _commentController.clear();
+                if (commentController.text.isNotEmpty) {
+                  _submitComment(commentController.text).then((_) {
+                    commentController.clear();
                     Navigator.of(context).pop();
                   }).catchError((error) {
                     print('Error submitting comment: $error');
@@ -159,7 +176,7 @@ class _CommentDetailScreenState extends State<CommentDetailScreen> {
     print(participantId);
     print('dollar: $comment');
     var url = Uri.parse(
-        'https://stress-be.onrender.com/api/participants/$participantId/comment');
+        'https://stress-bee.onrender.com/api/participants/$participantId/comment');
     var data = {'comment': comment};
     try {
       var response = await http.post(

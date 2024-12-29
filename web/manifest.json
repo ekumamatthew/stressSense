@@ -1,6 +1,6 @@
 {
-  "name": "stressSense_lab",
-  "short_name": "stressSense_lab",
+  "name": "neuroTrack",
+  "short_name": "neuroTrack",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#0175C2",

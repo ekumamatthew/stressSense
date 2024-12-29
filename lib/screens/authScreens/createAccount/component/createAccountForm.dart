@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stressSense_lab/theme/colors.dart';
-import 'package:stressSense_lab/widgets/inputs/customInputs.dart';
+import 'package:neuroTrack/theme/colors.dart';
+import 'package:neuroTrack/widgets/inputs/customInputs.dart';
 
 class AccountFormData {
   String fullName;
@@ -18,11 +18,11 @@ class AccountForm extends StatelessWidget {
   final AccountFormData formData;
   final Function(AccountFormData) onFormDataChanged;
 
-  AccountForm({
-    Key? key,
+  const AccountForm({
+    super.key,
     required this.formData,
     required this.onFormDataChanged,
-  }) : super(key: key);
+  });
 
   // Function to handle changes in the form fields and update formData
   void _handleFieldChanged(String newValue, String fieldName) {

@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:stressSense_lab/theme/colors.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:neuroTrack/screens/authScreens/signin/signin.dart';
+import 'package:neuroTrack/theme/colors.dart';
 
 class AccountWidget extends StatefulWidget {
-  const AccountWidget({Key? key}) : super(key: key);
+  const AccountWidget({super.key});
 
   @override
   _AccountWidgetState createState() => _AccountWidgetState();
 }
 
 class _AccountWidgetState extends State<AccountWidget> {
-  final FlutterSecureStorage storage = FlutterSecureStorage();
+  final FlutterSecureStorage storage = const FlutterSecureStorage();
   String supervisorName = 'Loading...';
   String mail = "";
   String role = "";
@@ -22,7 +24,6 @@ class _AccountWidgetState extends State<AccountWidget> {
     super.initState();
     _loadSupervisorName();
     dateTimeString = getCurrentDateTime();
-    // print('Current DateTime: $dateTimeString');
   }
 
   Future<void> _loadSupervisorName() async {
@@ -30,10 +31,9 @@ class _AccountWidgetState extends State<AccountWidget> {
     String? email = await storage.read(key: 'email');
     String? roles = await storage.read(key: 'role');
 
-    print(name);
     setState(() {
       supervisorName = name ?? 'Default Supervisor Name';
-      mail = email ?? 'info@stresssend.lab';
+      mail = email ?? 'info@neurotrack.lab';
       role = roles ?? "";
     });
   }
@@ -83,11 +83,14 @@ class _AccountWidgetState extends State<AccountWidget> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            SizedBox(
-              width: 48,
-              height: 48,
-              child: Image.asset('assets/images/logoImages/aiImage.png'),
-            ),
+            ClipRRect(
+                borderRadius:
+                    BorderRadius.circular(15), // Adjust the radius as needed
+                child: SizedBox(
+                  width: 48,
+                  height: 48,
+                  child: Image.asset('assets/images/logoImages/neurotrack.jpg'),
+                )),
             const SizedBox(width: 10),
             Column(
               mainAxisSize: MainAxisSize.min,
@@ -104,7 +107,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                     letterSpacing: 0.02,
                   ),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 Text(
                   supervisorName, // Dynamic supervisor name
                   style: const TextStyle(
@@ -128,26 +131,65 @@ class _AccountWidgetState extends State<AccountWidget> {
             ),
           ],
         ),
-        Container(
-          width: 48,
-          height: 48,
-          decoration: ShapeDecoration(
-            color: Colors.white.withOpacity(0.1),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(400),
-            ),
+        ElevatedButton(
+          onPressed: () {
+            showLogoutConfirmation(context); // Call the logout confirmation
+          },
+          style: ElevatedButton.styleFrom(
+            iconColor: AppColor.blue, // Background color
+            backgroundColor: AppColor.white.withOpacity(0.8), // Text color
+          ),
+          child: const Text(
+            "Logout",
+            style: TextStyle(color: AppColor.blue),
           ),
         ),
       ],
     );
   }
 
+  Future<void> showLogoutConfirmation(BuildContext context) async {
+    final bool? shouldLogout = await showDialog<bool>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Logout', style: TextStyle(color: AppColor.white)),
+          backgroundColor: AppColor.blue,
+          content: const Text(
+            'Are you sure you want to log out?',
+            style: TextStyle(color: AppColor.white),
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(false); // Don't logout
+              },
+              child: const Text('Cancel'),
+            ),
+            TextButton(
+              onPressed: () async {
+                Navigator.of(context).pop(true); // Confirm logout
+                await _logout(context); // Call the logout function
+              },
+              child:
+                  const Text('Logout', style: TextStyle(color: AppColor.white)),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (shouldLogout == true) {
+      await _logout(context); // Proceed with the logout operation
+    }
+  }
+
   Widget buildDateSection() {
     return Center(
       child: Text(
         dateTimeString, // Dynamic current date and time
-        style: TextStyle(
-          color: AppColor.black,
+        style: const TextStyle(
+          color: AppColor.white,
           fontSize: 10,
           fontFamily: 'Raleway',
           fontWeight: FontWeight.w400,
@@ -158,7 +200,53 @@ class _AccountWidgetState extends State<AccountWidget> {
 
   String getCurrentDateTime() {
     DateTime now = DateTime.now();
-    // Example format: 'Today, 23rd January, 2024, 10:00 AM'
     return DateFormat('EEEE, d MMMM, yyyy, h:mm a').format(now);
+  }
+
+  Future<void> _logout(BuildContext context) async {
+    final FlutterSecureStorage secureStorage = const FlutterSecureStorage();
+
+    // Assuming your logout API URL is like this
+    final String apiUrl =
+        'https://your-api-url.com/logout'; // Replace with your actual API URL
+
+    try {
+      // Make the API call to log out
+      final response = await http.post(
+        Uri.parse(apiUrl),
+        headers: {
+          'Authorization':
+              'Bearer ${await secureStorage.read(key: 'authToken')}', // Send the token in the request if needed
+        },
+      );
+
+      if (response.statusCode == 200) {
+        // If the API returns a success, delete the auth token
+        await secureStorage.delete(key: 'authToken');
+
+        // Show success message (optional)
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Logged out successfully!')),
+        );
+
+        // Navigate to the SignInScreen
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => const Signin()),
+        );
+      } else {
+        // Handle API error (you can show a snackbar or dialog)
+        String errorMessage =
+            response.body; // Use the body of the response for error message
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Error logging out: $errorMessage')),
+        );
+      }
+    } catch (e) {
+      // Handle network errors
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error logging out: $e')),
+      );
+    }
   }
 }

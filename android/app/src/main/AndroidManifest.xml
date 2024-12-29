@@ -4,7 +4,7 @@
 
 
     <application
-        android:label="StressSense Lab"
+        android:label="NeuroTrack"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

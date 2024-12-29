@@ -16,7 +16,7 @@ class Button1 extends StatelessWidget {
   final Color? borderColor;
 
   const Button1({
-    Key? key,
+    super.key,
     required this.text,
     required this.onPressed,
     required this.backgroundColor,
@@ -29,7 +29,7 @@ class Button1 extends StatelessWidget {
     required this.height,
     required this.letterSpacing,
     this.borderColor,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

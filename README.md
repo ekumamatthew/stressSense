@@ -1,4 +1,4 @@
-# stressSense_lab
+# neuroTrack
 
 Artifitial intelligience meets Fintech and InsurTech.
 

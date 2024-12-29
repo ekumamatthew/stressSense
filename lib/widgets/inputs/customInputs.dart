@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:neuroTrack/theme/colors.dart';
 
 class FormData {
   String email;
@@ -14,15 +15,15 @@ class CustomInput extends StatelessWidget {
   final String? errorText; // Optional error text for validation
   final String? Function(String?)? validator;
 
-  CustomInput({
-    Key? key,
+  const CustomInput({
+    super.key,
     required this.initialValue,
     required this.onChanged,
     required this.label,
     required this.tag,
     this.errorText, // Optional error text for validation
     this.validator, // Custom validation function
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +71,7 @@ class CustomInput extends StatelessWidget {
             labelText: label,
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(8),
-                borderSide:
-                    const BorderSide(width: 1, color: Color(0xFFF0F0F0))),
+                borderSide: const BorderSide(width: 1, color: AppColor.blue)),
             errorText: errorText, // Display validation error text
           ),
           onChanged: onChanged,

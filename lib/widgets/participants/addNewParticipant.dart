@@ -3,13 +3,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:stressSense_lab/screens/dashboardScreens/layout/dashboardPage.dart';
-import 'package:stressSense_lab/widgets/inputs/customInputs.dart';
-import 'package:stressSense_lab/widgets/loading/loading.dart';
-import 'package:stressSense_lab/widgets/loading/snacbar.dart';
+import 'package:neuroTrack/screens/dashboardScreens/layout/dashboardPage.dart';
+import 'package:neuroTrack/theme/colors.dart';
+import 'package:neuroTrack/widgets/inputs/customInputs.dart';
+import 'package:neuroTrack/widgets/loading/loading.dart';
+import 'package:neuroTrack/widgets/loading/snacbar.dart';
 
 class AddParticipantScreen extends StatefulWidget {
-  AddParticipantScreen({super.key});
+  const AddParticipantScreen({super.key});
 
   @override
   _AddParticipantScreenState createState() => _AddParticipantScreenState();
@@ -19,7 +20,7 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
   final _formKey = GlobalKey<FormState>();
   String participant = '';
   bool _isSubmitting = false;
-  final storage = FlutterSecureStorage();
+  final storage = const FlutterSecureStorage();
   // Other participant attributes as needed
   void _handleNameChanged(String newParticipant) {
     setState(() {
@@ -35,7 +36,7 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
       setState(() {
         _isSubmitting = true; // Start loading
       });
-      var url = Uri.parse('https://stress-be.onrender.com/api/participants');
+      var url = Uri.parse('https://stress-bee.onrender.com/api/participants');
 
       var data = {'name': participant};
 
@@ -52,7 +53,7 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
             _isSubmitting = false; // Stop loading on error as well
           });
 
-          CustomSnackbar.show(context, "Suuccess: Participant Added");
+          CustomSnackbar.show(context, "Suuccess: Mermber Added");
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (context) => const Dashboard()),
@@ -82,11 +83,11 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add New Participant'),
+        title: const Text('Add New Member'),
       ),
       body: Stack(children: [
         if (_isSubmitting) ...[
-          Opacity(
+          const Opacity(
             opacity: 1,
             child: ModalBarrier(dismissible: false, color: Colors.grey),
           ),
@@ -101,12 +102,12 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
               padding: const EdgeInsets.all(8.0),
               child: Column(
                 children: [
-                  SizedBox(height: 40),
+                  const SizedBox(height: 40),
                   CustomInput(
                     initialValue: participant,
                     onChanged: _handleNameChanged,
-                    label: 'Participant',
-                    tag: 'Paticipant Name',
+                    label: 'Member',
+                    tag: 'Member Name',
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter a name';
@@ -114,12 +115,15 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
                       return null; // null means no error
                     },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 80,
                   ),
                   ElevatedButton(
                     onPressed: _saveParticipant,
-                    child: const Text('Save Participant'),
+                    child: const Text(
+                      'Save Member',
+                      style: TextStyle(color: AppColor.blue),
+                    ),
                   ),
                 ],
               ),

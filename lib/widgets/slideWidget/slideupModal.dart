@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stressSense_lab/theme/colors.dart';
-import 'package:stressSense_lab/widgets/buttonsWidget/buttons.dart';
+import 'package:neuroTrack/theme/colors.dart';
+import 'package:neuroTrack/widgets/buttonsWidget/buttons.dart';
 
 void slideupBottomSheet(BuildContext context,
     {required VoidCallback onLoginPressed,

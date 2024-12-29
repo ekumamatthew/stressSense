@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:stressSense_lab/screens/dashboardScreens/layout/dashboardPage.dart';
-import 'package:stressSense_lab/screens/onBoardScreen/onBoardScreen1.dart';
-import 'package:stressSense_lab/screens/splashScreen/splashScreen.dart';
+import 'package:neuroTrack/screens/dashboardScreens/layout/dashboardPage.dart';
+import 'package:neuroTrack/screens/onBoardScreen/onBoardScreen1.dart';
+import 'package:neuroTrack/screens/splashScreen/splashScreen.dart';
 
 void main() {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'stressSense_Lab',
+      title: 'NeuroTrack',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),

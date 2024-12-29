@@ -5,14 +5,14 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:stressSense_lab/screens/authScreens/createAccount/createAccount.dart';
-import 'package:stressSense_lab/screens/authScreens/resetPassword/resetPassword.dart';
-import 'package:stressSense_lab/screens/dashboardScreens/layout/dashboardPage.dart';
-import 'package:stressSense_lab/theme/colors.dart';
-import 'package:stressSense_lab/widgets/buttonsWidget/buttons.dart';
-import 'package:stressSense_lab/widgets/inputs/customInputs.dart';
-import 'package:stressSense_lab/widgets/loading/loading.dart';
-import 'package:stressSense_lab/widgets/loading/snacbar.dart';
+import 'package:neuroTrack/screens/authScreens/createAccount/createAccount.dart';
+import 'package:neuroTrack/screens/authScreens/resetPassword/resetPassword.dart';
+import 'package:neuroTrack/screens/dashboardScreens/layout/dashboardPage.dart';
+import 'package:neuroTrack/theme/colors.dart';
+import 'package:neuroTrack/widgets/buttonsWidget/buttons.dart';
+import 'package:neuroTrack/widgets/inputs/customInputs.dart';
+import 'package:neuroTrack/widgets/loading/loading.dart';
+import 'package:neuroTrack/widgets/loading/snacbar.dart';
 
 class Signin extends StatefulWidget {
   const Signin({super.key});
@@ -22,7 +22,7 @@ class Signin extends StatefulWidget {
 }
 
 bool _isSubmitting = false;
-final storage = FlutterSecureStorage();
+final storage = const FlutterSecureStorage();
 
 class _SigninState extends State<Signin> {
   String email = '';
@@ -54,7 +54,7 @@ class _SigninState extends State<Signin> {
     setState(() {
       _isSubmitting = true; // Start loading
     });
-    var url = Uri.parse('https://stress-be.onrender.com/api/auth/login');
+    var url = Uri.parse('https://stress-bee.onrender.com/api/auth/login/');
     var data = {'password': newpass, 'username': newuser};
     // print(data);
     try {
@@ -82,9 +82,10 @@ class _SigninState extends State<Signin> {
         ]);
 
         CustomSnackbar.show(context, "Suuccess: Successfully Signin");
-        Navigator.pushReplacement(
+        Navigator.pushAndRemoveUntil(
           context,
           MaterialPageRoute(builder: (context) => const Dashboard()),
+          (route) => false, // Removes all previous routes
         );
       } else {
         var responseData = json.decode(response.body);
@@ -112,7 +113,7 @@ class _SigninState extends State<Signin> {
           child: Stack(
             children: [
               if (_isSubmitting) ...[
-                Opacity(
+                const Opacity(
                   opacity: 1,
                   child: ModalBarrier(dismissible: false, color: Colors.grey),
                 ),
@@ -202,7 +203,7 @@ class _SigninState extends State<Signin> {
                         Column(
                           children: <Widget>[
                             const SizedBox(
-                              height: 100,
+                              height: 200,
                             ),
                             Button1(
                                 text: 'Login',
@@ -210,7 +211,7 @@ class _SigninState extends State<Signin> {
                                 backgroundColor: AppColor.blue,
                                 width: 357,
                                 padding: const EdgeInsets.all(16),
-                                textColor: AppColor.black,
+                                textColor: AppColor.white,
                                 fontFamily: 'Raleway',
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,

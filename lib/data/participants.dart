@@ -27,18 +27,18 @@ class ParticipantData {
 }
 
 class EpisodeData {
-  final double stai;
-  final double nasa;
+  final double INITIAL_STRESS;
+  final double FINAL_STRESS;
   final int episodeNumber;
 
   EpisodeData(
-      {required this.episodeNumber, required this.stai, required this.nasa});
+      {required this.episodeNumber, required this.INITIAL_STRESS, required this.FINAL_STRESS});
 
   factory EpisodeData.fromJson(Map<String, dynamic> json) {
     return EpisodeData(
       episodeNumber: getSafeInt(json['episodeNumber']),
-      stai: (json['STAI'] as num?)?.toDouble() ?? 0.0,
-      nasa: (json['NASA'] as num?)?.toDouble() ?? 0.0,
+      INITIAL_STRESS: (json['INITIAL_STRESS'] as num?)?.toDouble() ?? 0.0,
+      FINAL_STRESS: (json['FINAL_STRESS'] as num?)?.toDouble() ?? 0.0,
     );
   }
 }

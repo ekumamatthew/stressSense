@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:stressSense_lab/theme/colors.dart';
+import 'package:neuroTrack/theme/colors.dart';
 
 class BottomNavigation extends StatelessWidget {
   const BottomNavigation({super.key});

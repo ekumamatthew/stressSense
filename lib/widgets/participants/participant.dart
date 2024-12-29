@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:stressSense_lab/data/participants.dart';
-import 'package:stressSense_lab/widgets/participants/participant_entension_tile.dart';
+import 'package:neuroTrack/data/participants.dart';
+import 'package:neuroTrack/widgets/participants/participant_entension_tile.dart';
 
 class ParticipantsListWidget extends StatelessWidget {
   final List<ParticipantData> participantsList;
-  const ParticipantsListWidget({Key? key, required this.participantsList})
-      : super(key: key);
+  const ParticipantsListWidget({super.key, required this.participantsList});
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +16,7 @@ class ParticipantsListWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         return ParticipantExpansionTile(
           participant: participantsList[index],
-          participantsList: [],
+          participantsList: const [],
         );
       },
     );

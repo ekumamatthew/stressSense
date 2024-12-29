@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class PulsingAnimationWidget extends StatefulWidget {
+  const PulsingAnimationWidget({super.key});
+
   @override
   _PulsingAnimationWidgetState createState() => _PulsingAnimationWidgetState();
 }
@@ -31,20 +33,39 @@ class _PulsingAnimationWidgetState extends State<PulsingAnimationWidget>
 
   @override
   Widget build(BuildContext context) {
-    double size =
-        MediaQuery.of(context).size.width * 0.3; // 30% of screen width
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (context, child) {
-        return Transform.scale(
-          scale: _animation.value,
-          child: SizedBox(
-            width: size,
-            height: size,
-            child: Image.asset('assets/images/logoImages/aiImage.png'),
+    double size = MediaQuery.of(context).size.width * 0.3;
+    return Stack(
+      children: [
+        Positioned.fill(
+          child: IgnorePointer(
+            child: Opacity(
+              opacity: 0.5,
+              child: Container(color: Colors.grey),
+            ),
           ),
-        );
-      },
+        ),
+        AnimatedBuilder(
+          animation: _animation,
+          builder: (context, child) {
+            return Transform.scale(
+              scale: _animation.value,
+              child: SizedBox(
+                width: size,
+                height: size,
+                child: ClipRRect(
+                  borderRadius:
+                      BorderRadius.circular(50), // Adjust the radius as needed
+                  child: Image.asset(
+                    'assets/images/logoImages/neurotrack.jpg',
+                    fit: BoxFit
+                        .cover, // Makes sure the image covers the entire space
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ],
     );
   }
 }

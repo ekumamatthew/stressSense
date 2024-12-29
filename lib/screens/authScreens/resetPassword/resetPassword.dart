@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:stressSense_lab/screens/authScreens/verifyEmail/verifyEmail.dart';
-import 'package:stressSense_lab/theme/colors.dart';
-import 'package:stressSense_lab/widgets/buttonsWidget/buttons.dart';
-import 'package:stressSense_lab/widgets/inputs/customInputs.dart';
+import 'package:neuroTrack/screens/authScreens/verifyEmail/verifyEmail.dart';
+import 'package:neuroTrack/theme/colors.dart';
+import 'package:neuroTrack/widgets/buttonsWidget/buttons.dart';
+import 'package:neuroTrack/widgets/inputs/customInputs.dart';
 
 class ResetPassword extends StatefulWidget {
   const ResetPassword({super.key});

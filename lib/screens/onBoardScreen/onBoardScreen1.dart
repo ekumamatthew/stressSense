@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:stressSense_lab/screens/authScreens/signin/signin.dart';
-import 'package:stressSense_lab/theme/colors.dart';
-import 'package:stressSense_lab/widgets/buttonsWidget/buttons.dart';
-import 'package:stressSense_lab/widgets/slideWidget/slideupModal.dart';
-import "package:stressSense_lab/screens/authScreens/createAccount/createAccount.dart";
+import "package:neuroTrack/screens/authScreens/createAccount/createAccount.dart";
+import 'package:neuroTrack/screens/authScreens/signin/signin.dart';
+import 'package:neuroTrack/theme/colors.dart';
+import 'package:neuroTrack/widgets/buttonsWidget/buttons.dart';
+import 'package:neuroTrack/widgets/slideWidget/slideupModal.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -21,13 +21,20 @@ class OnboardingScreen extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    Image.asset(
-                      'assets/images/logoImages/aiImage.png',
-                      width: 236.527,
-                      height: 212.736,
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                          30), // Adjust the radius as needed
+                      child: Image.asset(
+                        'assets/images/logoImages/neurotrack.jpg',
+                        width: 236.527,
+                        height: 212.736,
+                        fit: BoxFit
+                            .cover, // Ensures the image fits within the box
+                      ),
                     ),
+
                     const Text(
-                      'StressSense ',
+                      'NeuroTrack ',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: AppColor.black,
@@ -38,18 +45,7 @@ class OnboardingScreen extends StatelessWidget {
                         letterSpacing: -2.4,
                       ),
                     ),
-                    const Text(
-                      'Lab',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: AppColor.gray,
-                        fontFamily: 'Ubuntu',
-                        fontSize: 48,
-                        fontWeight: FontWeight.w500,
-                        height: 1.2,
-                        letterSpacing: -2.4,
-                      ),
-                    ),
+
                     // Add more widgets for other onboarding content
                   ],
                 )),
@@ -68,7 +64,7 @@ class OnboardingScreen extends StatelessWidget {
                               context,
                               MaterialPageRoute(
                                   builder: (context) =>
-                                      Signin())); // Example action
+                                      const Signin())); // Example action
                         },
                         onSignupPressed: () {
                           Navigator.push(

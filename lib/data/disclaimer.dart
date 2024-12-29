@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DisclaimerPage extends StatelessWidget {
+  const DisclaimerPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const SingleChildScrollView(
@@ -28,7 +30,7 @@ class DisclaimerPage extends StatelessWidget {
             "Mathew Ogbonnia Otu",
             textAlign: TextAlign.justify,
           ),
-  
+
           // Add more Widgets as needed
         ],
       ),

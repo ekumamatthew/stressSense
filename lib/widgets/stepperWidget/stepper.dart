@@ -1,207 +1,194 @@
-// ignore_for_file: use_build_context_synchronously
+// // ignore_for_file: use_build_context_synchronously
 
-import 'dart:convert';
+// import 'dart:convert';
+// import 'package:flutter/material.dart';
+// import 'package:http/http.dart' as http;
+// import 'package:neuroTrack/screens/authScreens/signin/signin.dart';
+// import 'package:neuroTrack/theme/colors.dart';
+// import 'package:neuroTrack/widgets/buttonsWidget/buttons.dart';
+// import 'package:neuroTrack/widgets/loading/loading.dart';
+// import 'package:neuroTrack/widgets/loading/snacbar.dart';
 
-import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:http/http.dart' as http;
-import 'package:stressSense_lab/data/disclaimer.dart';
-import 'package:stressSense_lab/screens/authScreens/createAccount/component/createAccountForm.dart';
-import 'package:stressSense_lab/screens/authScreens/signin/signin.dart';
-import 'package:stressSense_lab/theme/colors.dart';
-import 'package:stressSense_lab/widgets/buttonsWidget/buttons.dart';
-import 'package:stressSense_lab/widgets/loading/loading.dart';
-import 'package:stressSense_lab/widgets/loading/snacbar.dart';
+// class SignupPage extends StatefulWidget {
+//   const SignupPage({super.key});
 
-class StepperForm extends StatefulWidget {
-  final int currentStep;
+//   @override
+//   _SignupPageState createState() => _SignupPageState();
+// }
 
-  StepperForm({
-    super.key,
-    this.currentStep = 0,
-  });
+// class _SignupPageState extends State<SignupPage> {
+//   final _formKey = GlobalKey<FormState>();
+//   bool _isSubmitting = false;
 
-  @override
-  _StepperFormState createState() => _StepperFormState();
-}
+//   // Form fields
+//   String? fullName;
+//   String? email;
+//   String? password;
 
-class _StepperFormState extends State<StepperForm> {
-  final _formKey = GlobalKey<FormState>();
-  late int _currentStep;
-  bool _isSubmitting = false;
-  final FlutterSecureStorage _secureStorage = FlutterSecureStorage();
-  AccountFormData formData = AccountFormData();
-  bool _isSubmitted = false;
-  @override
-  void initState() {
-    super.initState();
-    _currentStep = widget.currentStep;
-  }
+//   Future<void> submitUserData() async {
+//     if (!_formKey.currentState!.validate()) return;
 
-  void _updateFormData(AccountFormData newData) {
-    setState(() {
-      formData = newData;
-    });
-  }
+//     setState(() {
+//       _isSubmitting = true; // Start loading
+//     });
 
-  void _goToNextStep() async {
-    if (_currentStep < _mySteps().length - 1) {
-      if (_currentStep == 0 && _formKey.currentState!.validate()) {
-        // Form is valid, proceed to the next step
-        await _secureStorage.write(key: 'fullName', value: formData.fullName);
-        // ... store other form data ...
-      } else {
-        return; // Form is invalid, stop here
-      }
-      setState(() {
-        _currentStep++;
-      });
-    } else {
-      submitUserData(formData);
-    }
-  }
+//     var data = {
+//       'name': fullName,
+//       'password': password,
+//       'username': email,
+//     };
 
-  Future<void> submitUserData(AccountFormData formData) async {
-    setState(() {
-      _isSubmitting = true; // Start loading
-    });
-    String? password = formData.password;
-    String? email = formData.email;
-    String? name = formData.fullName;
+//     var url = Uri.parse('https://stress-bee.onrender.com/api/auth/register');
+//     try {
+//       var response = await http.post(url, body: data);
+//       var successResponse = json.decode(response.body);
 
-    var data = {'name': name, 'password': password, 'username': email};
-    // print(data);
-    var url = Uri.parse(
-        'https://stress-be.onrender.com/api/auth/register'); // Adjust the endpoint as necessary
-    try {
-      var response = await http.post(url, body: data);
-      var successResponse = json.decode(response.body);
+//       if (successResponse['success'] == true) {
+//         setState(() {
+//           _isSubmitting = false; // Stop loading
+//         });
+//         CustomSnackbar.show(context, "Success: Successfully signed up");
+//         Navigator.pushReplacement(
+//           context,
+//           MaterialPageRoute(builder: (context) => const Signin()),
+//         );
+//       } else {
+//         String errorMessage =
+//             successResponse['error']['_message'] ?? 'Unknown error occurred';
+//         CustomSnackbar.show(context, "Error: $errorMessage");
+//       }
+//     } catch (e) {
+//       CustomSnackbar.show(context, "Signup Failed: $e");
+//     } finally {
+//       setState(() {
+//         _isSubmitting = false; // Stop loading
+//       });
+//     }
+//   }
 
-      // print(successResponse);
-      if (successResponse['success'] == true) {
-        setState(() {
-          _isSubmitting = false; // Stop loading on error as well
-        });
-        // print(successResponse);
-        CustomSnackbar.show(context, "Suuccess: Successfully Signeup");
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const Signin()),
-        );
-      } else {
-        var responseData = json.decode(response.body);
-        String errorMessage =
-            responseData['error']['_message'] ?? 'Unknown error occurred';
-        CustomSnackbar.show(context, "Error: $errorMessage");
-      }
-    } catch (e) {
-      // print(e);
-      CustomSnackbar.show(context, "Signup Failed : $e");
-      setState(() {
-        _isSubmitting = false; // Stop loading on error as well
-      });
-    } finally {
-      setState(() {
-        _isSubmitting = false; // Stop loading on error as well
-      });
-    }
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     final Size screenSize = MediaQuery.of(context).size;
 
-  List<Step> _mySteps() {
-    return [
-      Step(
-        title: Text('Step 1'), // title is now a Widget
-        content: AccountForm(
-          formData: formData,
-          onFormDataChanged: _updateFormData,
-        ),
-      ),
-      Step(
-        title: Text('Step 2'), // title is now a Widget
-        content: DisclaimerPage(),
-      ),
-    ];
-  }
+//     return Scaffold(
+//       body: SafeArea(
+//         child: Stack(
+//           children: [
+//             if (_isSubmitting) ...[
+//               const Opacity(
+//                 opacity: 1,
+//                 child: ModalBarrier(dismissible: false, color: Colors.grey),
+//               ),
+//               Center(
+//                 child: PulsingAnimationWidget(),
+//               ),
+//             ],
+//             SingleChildScrollView(
+//               child: Padding(
+//                 padding: const EdgeInsets.all(16.0),
+//                 child: Form(
+//                   key: _formKey,
+//                   child: Column(
+//                     crossAxisAlignment: CrossAxisAlignment.start,
+//                     children: [
+//                       const SizedBox(height: 50),
+//                       const Text(
+//                         "Sign Up",
+//                         style: TextStyle(
+//                           fontSize: 24,
+//                           fontWeight: FontWeight.bold,
+//                         ),
+//                       ),
+//                       const SizedBox(height: 30),
+//                       TextFormField(
+//                         decoration: const InputDecoration(
+//                           labelText: "Full Name",
+//                           border: OutlineInputBorder(),
+//                         ),
+//                         validator: (value) {
+//                           if (value == null || value.isEmpty) {
+//                             return "Full name is required";
+//                           }
+//                           return null;
+//                         },
+//                         onChanged: (value) => fullName = value,
+//                       ),
+//                       const SizedBox(height: 20),
+//                       TextFormField(
+//                         decoration: const InputDecoration(
+//                           labelText: "Email",
+//                           border: OutlineInputBorder(),
+//                         ),
+//                         keyboardType: TextInputType.emailAddress,
+//                         validator: (value) {
+//                           if (value == null || value.isEmpty) {
+//                             return "Email is required";
+//                           } else if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
+//                             return "Enter a valid email address";
+//                           }
+//                           return null;
+//                         },
+//                         onChanged: (value) => email = value,
+//                       ),
+//                       const SizedBox(height: 20),
+//                       TextFormField(
+//                         decoration: const InputDecoration(
+//                           labelText: "Password",
+//                           border: OutlineInputBorder(),
+//                         ),
+//                         obscureText: true,
+//                         validator: (value) {
+//                           if (value == null || value.length < 6) {
+//                             return "Password must be at least 6 characters";
+//                           }
+//                           return null;
+//                         },
+//                         onChanged: (value) => password = value,
+//                       ),
+//                       const SizedBox(height: 30),
+//                       Button1(
+//                         text: "Sign Up",
+//                         onPressed: submitUserData,
+//                         backgroundColor: AppColor.blue,
+//                         width: screenSize.width - 32,
+//                         padding: const EdgeInsets.all(16),
+//                         textColor: AppColor.white,
+//                         fontFamily: 'Raleway',
+//                         fontSize: 16.0,
+//                         fontWeight: FontWeight.w600,
+//                       ),
+//                       const SizedBox(height: 30),
+//                       _buildSignInLink(context),
+//                     ],
+//                   ),
+//                 ),
+//               ),
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
 
-  @override
-  Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      body: SafeArea(
-        child: SizedBox(
-          width: screenSize.width, // Set width to device width
-          height: screenSize.height, // Set height to device height
-          child: Stack(
-            children: [
-              if (_isSubmitting) ...[
-                Opacity(
-                  opacity: 1,
-                  child: ModalBarrier(dismissible: false, color: Colors.grey),
-                ),
-                Center(
-                  child:
-                      PulsingAnimationWidget(), // Or your custom loading widget
-                ),
-              ],
-              SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: Form(
-                    // Wrap with Form widget
-                    key: _formKey,
-                    child: Column(
-                      children: [
-                        const SizedBox(height: 50),
-                        _mySteps()[_currentStep].content,
-                        const SizedBox(height: 50),
-                        Button1(
-                          text: _currentStep < _mySteps().length - 1
-                              ? "Continue →"
-                              : "Finish",
-                          onPressed: _goToNextStep,
-                          backgroundColor: AppColor.blue,
-                          width: 375.0,
-                          padding: const EdgeInsets.all(20),
-                          textColor: AppColor.white,
-                          fontFamily: 'Raleway',
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.w600,
-                          height: 1.4,
-                          letterSpacing: 0.032,
-
-                          // Other Button1 properties...
-                        ),
-                        const SizedBox(height: 30),
-                        _buildSignInLink(context),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSignInLink(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        const Text(
-          'Already have an account?',
-          // Text style properties...
-        ),
-        InkWell(
-          onTap: () => Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const Signin())),
-          child: const Text(
-            "Log in",
-            // Text style properties...
-          ),
-        ),
-      ],
-    );
-  }
-}
+//   Widget _buildSignInLink(BuildContext context) {
+//     return Row(
+//       mainAxisAlignment: MainAxisAlignment.center,
+//       children: [
+//         const Text(
+//           'Already have an account?',
+//         ),
+//         InkWell(
+//           onTap: () => Navigator.push(
+//               context, MaterialPageRoute(builder: (context) => const Signin())),
+//           child: const Text(
+//             " Log in",
+//             style: TextStyle(
+//               color: Colors.blue,
+//               fontWeight: FontWeight.bold,
+//             ),
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }
