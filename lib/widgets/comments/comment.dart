@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:neuroTrack/data/commentData.dart';
-import 'package:neuroTrack/theme/colors.dart';
-import 'package:neuroTrack/widgets/loading/snacbar.dart';
+import 'package:stressSense/data/commentData.dart';
+import 'package:stressSense/theme/colors.dart';
+import 'package:stressSense/widgets/loading/snacbar.dart';
 
 class CommentDetailScreen extends StatefulWidget {
   final String userId;

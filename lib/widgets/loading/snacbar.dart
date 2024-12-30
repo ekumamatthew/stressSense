@@ -1,6 +1,6 @@
 // custom_snackbar.dart
 import 'package:flutter/material.dart';
-import 'package:neuroTrack/theme/colors.dart';
+import 'package:stressSense/theme/colors.dart';
 
 class CustomSnackbar {
   static void show(BuildContext context, String message) {

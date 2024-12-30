@@ -1,11 +1,11 @@
 // file: lib/widgets/participant_expansion_tile.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:neuroTrack/data/participants.dart';
-import 'package:neuroTrack/theme/colors.dart';
-import 'package:neuroTrack/widgets/comments/comment.dart';
-import 'package:neuroTrack/widgets/participants/participantDetails.dart';
-import 'package:neuroTrack/widgets/speedometer/speedometer.dart';
+import 'package:stressSense/data/participants.dart';
+import 'package:stressSense/theme/colors.dart';
+import 'package:stressSense/widgets/comments/comment.dart';
+import 'package:stressSense/widgets/participants/participantDetails.dart';
+import 'package:stressSense/widgets/speedometer/speedometer.dart';
 
 class ParticipantExpansionTile extends StatefulWidget {
   final ParticipantData participant;

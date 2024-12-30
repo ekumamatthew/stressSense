@@ -1,4 +1,4 @@
-package com.fizi_mobile.neuroTrack
+package com.fizi_mobile.stressSense
 
 import io.flutter.embedding.android.FlutterActivity
 

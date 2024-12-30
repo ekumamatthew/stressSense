@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:neuroTrack/screens/authScreens/signin/signin.dart'; // For navigation
-import 'package:neuroTrack/theme/colors.dart';
-import 'package:neuroTrack/widgets/buttonsWidget/buttons.dart';
-import 'package:neuroTrack/widgets/loading/loading.dart'; // PulsingAnimationWidget
-import 'package:neuroTrack/widgets/loading/snacbar.dart'; // CustomSnackbar
+import 'package:stressSense/screens/authScreens/signin/signin.dart'; // For navigation
+import 'package:stressSense/theme/colors.dart';
+import 'package:stressSense/widgets/buttonsWidget/buttons.dart';
+import 'package:stressSense/widgets/loading/loading.dart'; // PulsingAnimationWidget
+import 'package:stressSense/widgets/loading/snacbar.dart'; // CustomSnackbar
 
 class CreateAccount extends StatefulWidget {
   const CreateAccount({super.key});

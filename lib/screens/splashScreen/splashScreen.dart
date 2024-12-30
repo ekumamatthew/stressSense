@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:neuroTrack/screens/onBoardScreen/onBoardScreen1.dart';
-import 'package:neuroTrack/theme/colors.dart';
+import 'package:stressSense/screens/onBoardScreen/onBoardScreen1.dart';
+import 'package:stressSense/theme/colors.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -57,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen>
             );
           },
           child: Image.asset(
-            'assets/images/logoImages/neurotrack.jpg',
+            'assets/images/logoImages/aiImage.png',
             width: 236.527,
             height: 212.736,
           ),

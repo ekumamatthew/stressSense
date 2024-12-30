@@ -1,6 +1,6 @@
 {
-  "name": "neuroTrack",
-  "short_name": "neuroTrack",
+  "name": "stressSense",
+  "short_name": "stressSense",
   "start_url": ".",
   "display": "standalone",
   "background_color": "#0175C2",

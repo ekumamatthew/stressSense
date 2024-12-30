@@ -3,11 +3,11 @@
 // import 'dart:convert';
 // import 'package:flutter/material.dart';
 // import 'package:http/http.dart' as http;
-// import 'package:neuroTrack/screens/authScreens/signin/signin.dart';
-// import 'package:neuroTrack/theme/colors.dart';
-// import 'package:neuroTrack/widgets/buttonsWidget/buttons.dart';
-// import 'package:neuroTrack/widgets/loading/loading.dart';
-// import 'package:neuroTrack/widgets/loading/snacbar.dart';
+// import 'package:stressSense/screens/authScreens/signin/signin.dart';
+// import 'package:stressSense/theme/colors.dart';
+// import 'package:stressSense/widgets/buttonsWidget/buttons.dart';
+// import 'package:stressSense/widgets/loading/loading.dart';
+// import 'package:stressSense/widgets/loading/snacbar.dart';
 
 // class SignupPage extends StatefulWidget {
 //   const SignupPage({super.key});

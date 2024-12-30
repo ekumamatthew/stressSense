@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:neuroTrack/theme/colors.dart';
-import 'package:neuroTrack/widgets/inputs/customInputs.dart';
+import 'package:stressSense/theme/colors.dart';
+import 'package:stressSense/widgets/inputs/customInputs.dart';
 
 class AccountFormData {
   String fullName;

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
-import 'package:neuroTrack/screens/authScreens/signin/signin.dart';
-import 'package:neuroTrack/theme/colors.dart';
+import 'package:stressSense/screens/authScreens/signin/signin.dart';
+import 'package:stressSense/theme/colors.dart';
 
 class AccountWidget extends StatefulWidget {
   const AccountWidget({super.key});
@@ -33,7 +33,7 @@ class _AccountWidgetState extends State<AccountWidget> {
 
     setState(() {
       supervisorName = name ?? 'Default Supervisor Name';
-      mail = email ?? 'info@neurotrack.lab';
+      mail = email ?? 'info@stressSense.lab';
       role = roles ?? "";
     });
   }
@@ -89,7 +89,7 @@ class _AccountWidgetState extends State<AccountWidget> {
                 child: SizedBox(
                   width: 48,
                   height: 48,
-                  child: Image.asset('assets/images/logoImages/neurotrack.jpg'),
+                  child: Image.asset('assets/images/logoImages/aiImage.png'),
                 )),
             const SizedBox(width: 10),
             Column(

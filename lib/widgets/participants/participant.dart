@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:neuroTrack/data/participants.dart';
-import 'package:neuroTrack/widgets/participants/participant_entension_tile.dart';
+import 'package:stressSense/data/participants.dart';
+import 'package:stressSense/widgets/participants/participant_entension_tile.dart';
 
 class ParticipantsListWidget extends StatelessWidget {
   final List<ParticipantData> participantsList;

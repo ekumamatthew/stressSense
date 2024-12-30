@@ -19,7 +19,7 @@ class SpeedometerPainter extends CustomPainter {
       final segmentColor = Color.lerp(Colors.green, Colors.red, i / segments)!;
       final paintSegment = Paint()
         ..style = PaintingStyle.stroke
-        ..strokeWidth = 30
+        ..strokeWidth = 50
         ..color = segmentColor;
 
       canvas.drawArc(

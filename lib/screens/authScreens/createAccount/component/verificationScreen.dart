@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:neuroTrack/theme/colors.dart';
-import 'package:neuroTrack/widgets/buttonsWidget/buttons.dart';
-import 'package:neuroTrack/widgets/inputs/otpInput.dart';
+import 'package:stressSense/theme/colors.dart';
+import 'package:stressSense/widgets/buttonsWidget/buttons.dart';
+import 'package:stressSense/widgets/inputs/otpInput.dart';
 
 class Verification extends StatefulWidget {
   const Verification({super.key});

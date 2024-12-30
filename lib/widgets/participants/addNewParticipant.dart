@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:neuroTrack/screens/dashboardScreens/layout/dashboardPage.dart';
-import 'package:neuroTrack/theme/colors.dart';
-import 'package:neuroTrack/widgets/inputs/customInputs.dart';
-import 'package:neuroTrack/widgets/loading/loading.dart';
-import 'package:neuroTrack/widgets/loading/snacbar.dart';
+import 'package:stressSense/screens/dashboardScreens/layout/dashboardPage.dart';
+import 'package:stressSense/theme/colors.dart';
+import 'package:stressSense/widgets/inputs/customInputs.dart';
+import 'package:stressSense/widgets/loading/loading.dart';
+import 'package:stressSense/widgets/loading/snacbar.dart';
 
 class AddParticipantScreen extends StatefulWidget {
   const AddParticipantScreen({super.key});

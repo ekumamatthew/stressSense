@@ -56,7 +56,7 @@ class _PulsingAnimationWidgetState extends State<PulsingAnimationWidget>
                   borderRadius:
                       BorderRadius.circular(50), // Adjust the radius as needed
                   child: Image.asset(
-                    'assets/images/logoImages/neurotrack.jpg',
+                    'assets/images/logoImages/aiImage.png',
                     fit: BoxFit
                         .cover, // Makes sure the image covers the entire space
                   ),

@@ -3,11 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:neuroTrack/data/participants.dart';
-import 'package:neuroTrack/theme/colors.dart';
-import 'package:neuroTrack/widgets/dashboardWidgets/accountFrame.dart';
-import 'package:neuroTrack/widgets/participants/addNewParticipant.dart';
-import 'package:neuroTrack/widgets/participants/participant_entension_tile.dart';
+import 'package:stressSense/data/participants.dart';
+import 'package:stressSense/theme/colors.dart';
+import 'package:stressSense/widgets/dashboardWidgets/accountFrame.dart';
+import 'package:stressSense/widgets/participants/addNewParticipant.dart';
+import 'package:stressSense/widgets/participants/participant_entension_tile.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({super.key});

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import "package:neuroTrack/screens/authScreens/createAccount/createAccount.dart";
-import 'package:neuroTrack/screens/authScreens/signin/signin.dart';
-import 'package:neuroTrack/theme/colors.dart';
-import 'package:neuroTrack/widgets/buttonsWidget/buttons.dart';
-import 'package:neuroTrack/widgets/slideWidget/slideupModal.dart';
+import "package:stressSense/screens/authScreens/createAccount/createAccount.dart";
+import 'package:stressSense/screens/authScreens/signin/signin.dart';
+import 'package:stressSense/theme/colors.dart';
+import 'package:stressSense/widgets/buttonsWidget/buttons.dart';
+import 'package:stressSense/widgets/slideWidget/slideupModal.dart';
 
 class OnboardingScreen extends StatelessWidget {
   const OnboardingScreen({super.key});
@@ -25,7 +25,7 @@ class OnboardingScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(
                           30), // Adjust the radius as needed
                       child: Image.asset(
-                        'assets/images/logoImages/neurotrack.jpg',
+                        'assets/images/logoImages/aiImage.png',
                         width: 236.527,
                         height: 212.736,
                         fit: BoxFit
@@ -34,7 +34,7 @@ class OnboardingScreen extends StatelessWidget {
                     ),
 
                     const Text(
-                      'NeuroTrack ',
+                      'Stress Sense ',
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: AppColor.black,

@@ -1,4 +1,4 @@
-# neuroTrack
+# StressSense
 
 Artifitial intelligience meets Fintech and InsurTech.
 
