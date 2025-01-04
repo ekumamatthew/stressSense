@@ -38,7 +38,7 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
       });
       var url = Uri.parse('https://stress-bee.onrender.com/api/participants');
 
-      var data = {'name': participant};
+      var data = {'name': participant.toLowerCase()};
 
       try {
         var response = await http.post(

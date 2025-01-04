@@ -81,17 +81,11 @@ class _ParticipantExpansionTileState extends State<ParticipantExpansionTile> {
                         .center, // Center align items horizontally
                     children: [
                       Text(
-                        finalAverageValue.isFinite
-                            ? finalAverageValue >= 80
-                                ? 'High Stress'
-                                : finalAverageValue >= 50
-                                    ? 'Elevated Stress'
-                                    : finalAverageValue >= 30
-                                        ? 'Mildly Elevated Stress'
-                                        : finalAverageValue >= 10
-                                            ? 'Moderate Stress'
-                                            : 'Minimal Stress'
-                            : 'No Stress Data Available',
+                        finalAverageValue >= 80
+                            ? 'High Stress'
+                            : finalAverageValue >= 50
+                                ? 'Moderate Stress'
+                                : 'Low Stress',
                         style: const TextStyle(
                           color: AppColor.black,
                           fontWeight: FontWeight.bold,

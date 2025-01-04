@@ -54,7 +54,7 @@ class _SigninState extends State<Signin> {
     setState(() {
       _isSubmitting = true; // Start loading
     });
-    var url = Uri.parse('https://stress-bee.onrender.com/api/auth/login/');
+    var url = Uri.parse('https://stress-bee.onrender.com/api/auth/login');
     var data = {'password': newpass, 'username': newuser};
     // print(data);
     try {

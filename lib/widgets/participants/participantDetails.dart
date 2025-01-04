@@ -25,7 +25,7 @@ final storage = const FlutterSecureStorage();
 class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
   bool _isFormVisible = false;
   final _formKey = GlobalKey<FormState>();
-  String? _INITIAL_STRESS = '';
+  // String? _INITIAL_STRESS = "0";
   String? _FINAL_STRESS = '';
   void _toggleFormVisibility() {
     setState(() {
@@ -39,25 +39,22 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     });
   }
 
-  void handleStaiChange(String value) {
-    setState(() {
-      _INITIAL_STRESS = value;
-    });
-  }
+  // void handleStaiChange(String value) {
+  //   setState(() {
+  //     _INITIAL_STRESS = value;
+  //   });
+  // }
 
   void _submitForm() async {
     String? userToken = await storage.read(key: 'userToken');
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       var url = Uri.parse(
-          'https://stress-bee.onrender.com/api/participants/${widget.participant.id}/episode');
+          'https://stress-bee.onrender.com/api/participants/${widget.participant.id}/episodes');
       try {
         var response = await http.post(
           url,
-          body: {
-            'INITIAL_STRESS': "$_INITIAL_STRESS",
-            'FINAL_STRESS': "$_FINAL_STRESS"
-          },
+          body: {'INITIAL_STRESS': "0", 'FINAL_STRESS': "$_FINAL_STRESS"},
           headers: {'Authorization': 'Bearer $userToken'},
         );
         var responseData = json.decode(response.body);
@@ -92,45 +89,46 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
           SliverToBoxAdapter(
             child: Column(
               children: [
-                if (widget.participant.episodes.isEmpty)
-                  ElevatedButton(
-                    onPressed: _toggleFormVisibility,
-                    child: Text(
-                      _isFormVisible ? 'Cancel' : 'Add Episode',
-                      style: TextStyle(color: AppColor.blue),
-                    ),
+                ElevatedButton(
+                  onPressed: _toggleFormVisibility,
+                  child: Text(
+                    _isFormVisible ? 'Cancel' : 'Add Episode',
+                    style: const TextStyle(color: AppColor.blue),
                   ),
+                ),
                 Visibility(
                   visible: _isFormVisible,
                   child: Form(
                     key: _formKey,
                     child: Column(
                       children: [
+                        // TextFormField(
+                        //   decoration: InputDecoration(
+                        //       labelText: 'INITIAL STRESS Value'),
+                        //   keyboardType: TextInputType.number,
+                        //   onChanged: handleStaiChange,
+                        //   validator: (value) {
+                        //     if (value == null || value.isEmpty) {
+                        //       return 'Please enter a valid INITIAL STRESS value';
+                        //     }
+                        //     return null;
+                        //   },
+                        // ),
                         TextFormField(
-                          decoration: InputDecoration(
-                              labelText: 'INITIAL STRESS Value'),
-                          keyboardType: TextInputType.number,
-                          onChanged: handleStaiChange,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please enter a valid INITIAL STRESS value';
-                            }
-                            return null;
-                          },
-                        ),
-                        TextFormField(
-                          decoration: const InputDecoration(
-                              labelText: 'FINAL STRESS Value'),
+                          decoration:
+                              const InputDecoration(labelText: ' STRESS Value'),
                           keyboardType: TextInputType.number,
                           onChanged: handleNasaChange,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter a valid FINAL STRESS value';
+                              return 'Please enter a valid STRESS value';
                             }
                             return null;
                           },
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
                         ElevatedButton(
                           onPressed: _submitForm,
                           child: const Text(
@@ -149,33 +147,26 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
                 final episode = widget.participant.episodes[index];
-                var nasavalue = episode.FINAL_STRESS;
+                var stressvalue = episode.FINAL_STRESS;
                 return Column(
                   children: [
                     Card(
                       color: AppColor.blue.withOpacity(0.1),
                       margin: const EdgeInsets.all(8.0),
                       child: ListTile(
-                        // title: Text('Episode ${index + 1}'),
+                        title: Text('Episode ${index + 1}'),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            // Text(
+                            //     'STRESS BEFORE TASK: ${episode.INITIAL_STRESS.toStringAsFixed(2)}'),
                             Text(
-                                'STRESS BEFORE TASK: ${episode.INITIAL_STRESS.toStringAsFixed(2)}'),
-                            Text(
-                                'STRESS AFTER TASK: ${episode.FINAL_STRESS.toStringAsFixed(2)}'),
-                            Text(
-                              nasavalue >= 80
-                                  ? 'High Stress'
-                                  : nasavalue >= 50
-                                      ? 'Elevated Stress'
-                                      : nasavalue >= 30
-                                          ? 'Mildly Elevated Stress'
-                                          : nasavalue >= 10
-                                              ? 'Moderate Stress'
-                                              : 'Minimal Stress',
-                              // Additional styling can be applied here
-                            ),
+                                'STRESS VALUE: ${episode.FINAL_STRESS.toStringAsFixed(2)}'),
+                            Text(stressvalue >= 80
+                                ? 'High Stress'
+                                : stressvalue >= 50
+                                    ? 'Moderate Stress'
+                                    : 'Low Stress' ),
                           ],
                         ),
                         trailing: Row(
@@ -185,14 +176,15 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
                               icon:
                                   const Icon(Icons.edit, color: AppColor.blue),
                               onPressed: () => _showEditEpisodeDialog(
-                                  widget.participant.id, episode),
+                                  widget.participant.id,
+                                  index,
+                                  widget.participant.episodes[index]),
                             ),
                             IconButton(
-                              icon:
-                                  const Icon(Icons.delete, color: AppColor.red),
-                              onPressed: () => _showDeleteConfirmationDialog(
-                                  widget.participant.id),
-                            ),
+                                icon: const Icon(Icons.delete,
+                                    color: AppColor.red),
+                                onPressed: () => _showDeleteConfirmationDialog(
+                                    widget.participant.id, index)),
                           ],
                         ),
                       ),
@@ -221,9 +213,10 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     );
   }
 
-  void _showEditEpisodeDialog(String participantId, EpisodeData episodeData) {
+  void _showEditEpisodeDialog(
+      String participantId, int episodeIndex, EpisodeData episodeData) {
     // Initialize controllers with existing values (no .toString() needed)
-    final INITIAL_STRESSController = TextEditingController(text: '');
+    // final INITIAL_STRESSController = TextEditingController(text: '');
     final FINAL_STRESSController = TextEditingController(text: '');
 
     showDialog(
@@ -243,20 +236,20 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: <Widget>[
-                      TextFormField(
-                        keyboardType: TextInputType.number,
-                        cursorColor: AppColor.white,
-                        style: TextStyle(color: AppColor.white),
-                        controller: INITIAL_STRESSController,
-                        decoration: const InputDecoration(
-                            labelText: 'Stress Level Before '),
-                        validator: (value) {
-                          if (value == null || value.isEmpty) {
-                            return 'Please enter a valid Stress Level Before ';
-                          }
-                          return null;
-                        },
-                      ),
+                      // TextFormField(
+                      //   keyboardType: TextInputType.number,
+                      //   cursorColor: AppColor.white,
+                      //   style: TextStyle(color: AppColor.white),
+                      //   controller: INITIAL_STRESSController,
+                      //   decoration: const InputDecoration(
+                      //       labelText: 'Stress Level Before '),
+                      //   validator: (value) {
+                      //     if (value == null || value.isEmpty) {
+                      //       return 'Please enter a valid Stress Level Before ';
+                      //     }
+                      //     return null;
+                      //   },
+                      // ),
                       TextFormField(
                         keyboardType: TextInputType.number,
                         cursorColor: AppColor.white,
@@ -295,10 +288,10 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
                 if (_formKey.currentState!.validate()) {
                   Navigator.of(context).pop();
                   await _updateEpisode(
-                    participantId,
-                    INITIAL_STRESSController,
-                    FINAL_STRESSController,
-                  );
+                      participantId,
+                      // INITIAL_STRESSController,
+                      episodeIndex,
+                      FINAL_STRESSController);
                 }
               },
             ),
@@ -310,22 +303,23 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
 
   Future<void> _updateEpisode(
     String participantId,
-    TextEditingController INITIAL_STRESSController,
+    int episodeIndex,
+    // TextEditingController INITIAL_STRESSController,
     TextEditingController FINAL_STRESSController,
   ) async {
     // Capture updated values from controllers
-    final initialValue = INITIAL_STRESSController.text;
+    // final initialValue = INITIAL_STRESSController.text;
     final finalValue = FINAL_STRESSController.text;
-
+    var epiindex = episodeIndex + 1;
     final userToken = await storage.read(key: 'userToken');
 
     final data = json.encode({
       'FINAL_STRESS': finalValue,
-      'INITIAL_STRESS': initialValue,
+      'INITIAL_STRESS': "0",
     });
 
     final url = Uri.parse(
-        'https://stress-bee.onrender.com/api/participants/$participantId/episode');
+        'https://stress-bee.onrender.com/api/participants/$participantId/episodes/$epiindex');
 
     try {
       print("Request Data: $data");
@@ -361,7 +355,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     }
   }
 
-  void _showDeleteConfirmationDialog(String participantId) {
+  void _showDeleteConfirmationDialog(String participantId, int episodeIndex) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -392,7 +386,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
               ),
               onPressed: () {
                 Navigator.of(context).pop();
-                _deleteEpisode(participantId);
+                _deleteEpisode(participantId, episodeIndex);
               },
             ),
           ],
@@ -401,10 +395,11 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     );
   }
 
-  void _deleteEpisode(String participantId) async {
+  void _deleteEpisode(String participantId, episodeIndex) async {
     String? userToken = await storage.read(key: 'userToken');
+    var epiindex = episodeIndex + 1;
     var url = Uri.parse(
-        'https://stress-bee.onrender.com/api/participants/$participantId/episode');
+        'https://stress-bee.onrender.com/api/participants/$participantId/episodes/$epiindex');
     try {
       var response = await http.delete(
         url,
