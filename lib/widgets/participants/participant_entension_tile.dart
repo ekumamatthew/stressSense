@@ -1,4 +1,8 @@
-// file: lib/widgets/participant_expansion_tile.dart
+/**
+ * This holds the participant dropdwon that shows the average value of a participant stress record in the speedometer clock
+ * the function for showing the average stress level >50 , >20  and minimal is here on line 89
+ */
+
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:stressSense/data/participants.dart';

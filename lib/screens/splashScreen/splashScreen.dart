@@ -1,3 +1,11 @@
+
+/*
+The splash screen is the splash banner that has the app logo rotate before the onboarding screen.
+In the splash screen there is a timer on line 44 that controls the display period before it routes to onboarding
+
+from line 31-45 controls the animation effect and is refrenced in line
+ */
+
 import 'dart:async';
 
 import 'package:flutter/material.dart';

@@ -1,3 +1,10 @@
+
+/**
+ * The onboarding screen controls the route selection for Create account and login
+ *
+ *
+ */
+
 import 'package:flutter/material.dart';
 import "package:stressSense/screens/authScreens/createAccount/createAccount.dart";
 import 'package:stressSense/screens/authScreens/signin/signin.dart';

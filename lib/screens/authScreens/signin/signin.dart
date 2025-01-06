@@ -161,8 +161,8 @@ class _SigninState extends State<Signin> {
                             CustomInput(
                               initialValue: email,
                               onChanged: _handleEmailChanged,
-                              label: 'Entetr Your email',
-                              tag: 'email',
+                              label: 'Enter Your email',
+                              tag: 'Email',
                             ),
                             const SizedBox(
                               height: 22,
@@ -176,28 +176,31 @@ class _SigninState extends State<Signin> {
                             const SizedBox(
                               height: 15,
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                InkWell(
-                                  onTap: () {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const ResetPassword()),
-                                    );
-                                  },
-                                  child: const Text(
-                                    "Reset Your Password",
-                                    textAlign: TextAlign.right,
-                                    style: TextStyle(
-                                      color: AppColor.blue,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            )
+
+                            //  Commented out the reset button because it dosent apply in the app for now
+                            
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.end,
+                            //   children: [
+                            //     InkWell(
+                            //       onTap: () {
+                            //         Navigator.push(
+                            //           context,
+                            //           MaterialPageRoute(
+                            //               builder: (context) =>
+                            //                   const ResetPassword()),
+                            //         );
+                            //       },
+                            //       child: const Text(
+                            //         "Reset Your Password",
+                            //         textAlign: TextAlign.right,
+                            //         style: TextStyle(
+                            //           color: AppColor.blue,
+                            //         ),
+                            //       ),
+                            //     ),
+                            //   ],
+                            // )
                           ],
                         ),
                         Column(

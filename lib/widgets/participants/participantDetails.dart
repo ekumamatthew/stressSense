@@ -1,4 +1,6 @@
-// file: lib/screens/participant_detail_screen.dart
+/**
+ * THis screen display participant episode details and you can can edit, delete and update episode. you can also delete the participant from here
+ */
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -39,12 +41,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     });
   }
 
-  // void handleStaiChange(String value) {
-  //   setState(() {
-  //     _INITIAL_STRESS = value;
-  //   });
-  // }
-
+// Create Participant episode function
   void _submitForm() async {
     String? userToken = await storage.read(key: 'userToken');
     if (_formKey.currentState!.validate()) {
@@ -78,6 +75,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     }
   }
 
+// participant details screen
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -166,7 +164,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
                                 ? 'High Stress'
                                 : stressvalue >= 50
                                     ? 'Moderate Stress'
-                                    : 'Low Stress' ),
+                                    : 'Low Stress'),
                           ],
                         ),
                         trailing: Row(
@@ -213,6 +211,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     );
   }
 
+//update episode modal
   void _showEditEpisodeDialog(
       String participantId, int episodeIndex, EpisodeData episodeData) {
     // Initialize controllers with existing values (no .toString() needed)
@@ -223,7 +222,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          backgroundColor: AppColor.blue.withOpacity(0.5),
+          backgroundColor: AppColor.blue.withOpacity(0.9),
           title: const Text(
             'Edit Episode',
             style: TextStyle(color: AppColor.white),
@@ -256,7 +255,8 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
                         style: TextStyle(color: AppColor.white),
                         controller: FINAL_STRESSController,
                         decoration: const InputDecoration(
-                            labelText: 'Stress Level After'),
+                            labelStyle: TextStyle(color: Colors.red),
+                            labelText: 'Stress Level'),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return 'Please enter a valid Stress Level After';
@@ -301,6 +301,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     );
   }
 
+  // update Episode function
   Future<void> _updateEpisode(
     String participantId,
     int episodeIndex,
@@ -355,6 +356,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     }
   }
 
+//delete episode function
   void _showDeleteConfirmationDialog(String participantId, int episodeIndex) {
     showDialog(
       context: context,
@@ -395,6 +397,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     );
   }
 
+// delete episode function
   void _deleteEpisode(String participantId, episodeIndex) async {
     String? userToken = await storage.read(key: 'userToken');
     var epiindex = episodeIndex + 1;
@@ -421,6 +424,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     }
   }
 
+// delete participant function
   void _handleDelete() async {
     String? userToken = await storage.read(key: 'userToken');
     var url = Uri.parse(
@@ -448,6 +452,7 @@ class _ParticipantDetailScreenState extends State<ParticipantDetailScreen> {
     }
   }
 
+// Delete participant modal
   void _showDeleteParticipantConfirmationDialog() {
     showDialog(
       context: context,

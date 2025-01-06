@@ -1,3 +1,11 @@
+/**
+ * This is The Dashboard main screen Where other screens are linked to. Screens linked here includes
+ * -Participant details screen
+ * -Participant comment screen
+ * NOTE: Dont find the screen route here. is is refrenced as a widget. the participant expansion tile widget on line 170
+ * ctrl + click to enter any referenced widget
+ */
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -31,16 +39,6 @@ class _DashboardState extends State<Dashboard> {
     _fetchRole(); // Fetch the role of the logged-in user
     _fetchUserData(); // Fetch the logged-in participant's name if the role is participant
     _refreshParticipants(); // Fetch participants data
-  }
-
-  // Fetch logged-in user's name
-  Future<void> _fetchUserData() async {
-    String? name =
-        await storage.read(key: 'name'); // Fetch name from secure storage
-    setState(() {
-      userName = name ?? ''; // Store the name in state
-      print("Logged-in User's Name: $userName"); // Log the user name
-    });
   }
 
   // Fetch participants from API
@@ -94,7 +92,6 @@ class _DashboardState extends State<Dashboard> {
   }
 
   // Filter participants based on role and name
-
   void _filterParticipants() {
     String searchQuery = _searchController.text.toLowerCase();
     List<ParticipantData> filteredParticipants;
@@ -112,6 +109,7 @@ class _DashboardState extends State<Dashboard> {
     });
   }
 
+// Refetch participants: this function call is made when the participant page is reloaded
   Future<void> _refreshParticipants() async {
     List<ParticipantData> participants = await _fetchParticipants();
     setState(() {
@@ -121,6 +119,7 @@ class _DashboardState extends State<Dashboard> {
     });
   }
 
+// fetch user role from flutter secured storage. this was set during login
   Future<void> _fetchRole() async {
     String? role = await storage.read(key: 'role');
     setState(() {
@@ -128,6 +127,17 @@ class _DashboardState extends State<Dashboard> {
     });
   }
 
+// Fetch logged-in user's name
+  Future<void> _fetchUserData() async {
+    String? name =
+        await storage.read(key: 'name'); // Fetch name from secure storage
+    setState(() {
+      userName = name ?? ''; // Store the name in state
+      print("Logged-in User's Name: $userName"); // Log the user name
+    });
+  }
+
+// Dashboard widget
   @override
   Widget build(BuildContext context) {
     // ignore: deprecated_member_use
@@ -185,12 +195,11 @@ class _DashboardState extends State<Dashboard> {
         height: 35,
         child: TextField(
           controller: _searchController,
-
           decoration: InputDecoration(
             labelStyle: const TextStyle(color: AppColor.blue),
             iconColor: AppColor.blue,
             labelText: 'Search Member',
-          prefixIconColor: AppColor.blue,
+            prefixIconColor: AppColor.blue,
             prefixIcon: const Icon(Icons.search),
             contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
             border: const OutlineInputBorder(
@@ -200,7 +209,7 @@ class _DashboardState extends State<Dashboard> {
             filled: true,
             fillColor: Colors.grey[200],
           ),
-           onChanged: (query) {
+          onChanged: (query) {
             _filterParticipants(); // Filter participants on text change
           },
         ),

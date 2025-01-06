@@ -1,3 +1,8 @@
+/**
+ * This screens is for adding a new participant
+ *
+ */
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -28,6 +33,7 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
     });
   }
 
+// function to save participant
   void _saveParticipant() async {
     String? userToken = await storage.read(key: 'userToken');
     if (_formKey.currentState!.validate()) {
@@ -79,6 +85,7 @@ class _AddParticipantScreenState extends State<AddParticipantScreen> {
     }
   }
 
+// add participant widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,4 +1,9 @@
 // custom_snackbar.dart
+
+/**
+ * This page is the notification that pop when  there is an error or a succesful activity
+ */
+
 import 'package:flutter/material.dart';
 import 'package:stressSense/theme/colors.dart';
 

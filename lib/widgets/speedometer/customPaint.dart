@@ -1,4 +1,9 @@
+/**
+ * This page controls the speedometer color from red - green depending on the average value
+ */
+
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 
 class SpeedometerPainter extends CustomPainter {

@@ -1,3 +1,7 @@
+/**
+ *  this page for displaying the loading icon when you make a request to the database
+*/
+
 import 'package:flutter/material.dart';
 
 class PulsingAnimationWidget extends StatefulWidget {

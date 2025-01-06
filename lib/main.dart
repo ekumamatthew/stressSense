@@ -1,3 +1,12 @@
+/*  Main.dart is the app exit point where all other screens and components connects to
+
+core screens refrenced here includes
+splash screen on line 27
+
+other are routed
+onboarding screen line 35
+dashboard screen line 36
+*/
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:stressSense/screens/dashboardScreens/layout/dashboardPage.dart';

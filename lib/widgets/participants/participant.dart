@@ -1,3 +1,7 @@
+/**
+ * This page handles participants fetched from the api
+ */
+
 import 'package:flutter/material.dart';
 import 'package:stressSense/data/participants.dart';
 import 'package:stressSense/widgets/participants/participant_entension_tile.dart';

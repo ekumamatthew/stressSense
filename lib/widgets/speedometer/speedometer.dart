@@ -1,3 +1,7 @@
+/**
+ * Vallues are just passed from this page to the custom painter
+ */
+
 import 'package:flutter/material.dart';
 import 'package:stressSense/theme/colors.dart';
 import 'package:stressSense/widgets/speedometer/customPaint.dart';
@@ -32,7 +36,7 @@ class SpeedometerWidget extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  'Stress Level After Task: ${finalAverageValue.isFinite ? finalAverageValue.toStringAsFixed(2) : '0'}',
+                  'Average Stress Score: ${finalAverageValue.isFinite ? finalAverageValue.toStringAsFixed(2) : '0'}',
                   style: const TextStyle(
                     color: AppColor.gray,
                   ),
