@@ -1,23 +1,21 @@
-/**
- * This holds the participant dropdwon that shows the average value of a participant stress record in the speedometer clock
- * the function for showing the average stress level >50 , >20  and minimal is here on line 89
- */
-
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:stressSense/data/participants.dart';
 import 'package:stressSense/theme/colors.dart';
 import 'package:stressSense/widgets/comments/comment.dart';
 import 'package:stressSense/widgets/participants/participantDetails.dart';
+import 'package:stressSense/widgets/participants/stress_suggestion_screen.dart';
+import 'package:stressSense/widgets/participants/suggestion_helper.dart';
 import 'package:stressSense/widgets/speedometer/speedometer.dart';
 
 class ParticipantExpansionTile extends StatefulWidget {
   final ParticipantData participant;
 
-  const ParticipantExpansionTile(
-      {super.key,
-      required this.participant,
-      required List<ParticipantData> participantsList});
+  const ParticipantExpansionTile({
+    super.key,
+    required this.participant,
+    required List<ParticipantData> participantsList,
+  });
 
   @override
   _ParticipantExpansionTileState createState() =>
@@ -43,7 +41,6 @@ class _ParticipantExpansionTileState extends State<ParticipantExpansionTile> {
   void initState() {
     super.initState();
     _fetchRole();
-    // Other initializations
   }
 
   Future<void> _fetchRole() async {
@@ -71,82 +68,93 @@ class _ParticipantExpansionTileState extends State<ParticipantExpansionTile> {
           SingleChildScrollView(
             child: Column(
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width,
-                  child: SpeedometerWidget(
-                    initalAverageValue: initalAverageValue,
-                    finalAverageValue: finalAverageValue,
-                  ),
+                SpeedometerWidget(
+                  initalAverageValue: initalAverageValue,
+                  finalAverageValue: finalAverageValue,
                 ),
+                const SizedBox(height: 10),
                 Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment
-                        .center, // Center align items horizontally
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Text(
-                        finalAverageValue >= 80
-                            ? 'High Stress'
-                            : finalAverageValue >= 50
-                                ? 'Moderate Stress'
-                                : 'Low Stress',
-                        style: const TextStyle(
-                          color: AppColor.black,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 10), // Add spacing
+                      const SizedBox(height: 10),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          if (userRole == 'supervisor') // Conditional rendering
-                            ElevatedButton(
-                              onPressed: () {
-                                Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        ParticipantDetailScreen(
-                                      participant: widget.participant,
-                                    ),
+                          if (userRole == 'supervisor')
+                            _smallButton(
+                              label: 'View Details',
+                              onPressed: () => Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (_) => ParticipantDetailScreen(
+                                    participant: widget.participant,
                                   ),
-                                );
-                              },
-                              child: const Text(
-                                'View Details',
-                                style: TextStyle(color: AppColor.blue),
+                                ),
                               ),
                             ),
-                          const SizedBox(width: 10), // Spacing between buttons
-                          ElevatedButton(
+                          const SizedBox(width: 5), // tighter gap
+                          _smallButton(
+                            label: 'Suggested Actions',
                             onPressed: () {
+                              final suggestion = buildSuggestion(
+                                  finalAverageValue); // helper from suggestion_helper.dart
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) => CommentDetailScreen(
-                                    userId: widget.participant.id,
-                                    userName: widget.participant.name,
+                                  builder: (_) => StressSuggestionScreen(
+                                    suggestion: suggestion,
                                   ),
                                 ),
                               );
                             },
-                            child: Text(
-                              userRole == 'supervisor'
-                                  ? 'Add Comment'
-                                  : 'View Comments',
-                              style: TextStyle(color: AppColor.blue),
+                          ),
+
+                          const SizedBox(width: 5),
+                          _smallButton(
+                            label: userRole == 'supervisor'
+                                ? 'Add Comment'
+                                : 'View Comments',
+                            onPressed: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (_) => CommentDetailScreen(
+                                  userId: widget.participant.id,
+                                  userName: widget.participant.name,
+                                ),
+                              ),
                             ),
                           ),
                         ],
                       ),
-
-                      const SizedBox(height: 10), // Add spacing at the bottom
+                      const SizedBox(height: 10),
                     ],
                   ),
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
   }
+}
+
+Widget _smallButton({
+  required String label,
+  required VoidCallback onPressed,
+}) {
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 8, // default is 16 — cut in half
+        vertical: 10, // tweak as needed
+      ),
+      minimumSize: Size.zero, // lets the padding truly dictate size
+      tapTargetSize: MaterialTapTargetSize.shrinkWrap, // shrinks hit test area
+    ),
+    onPressed: onPressed,
+    child: Text(
+      label,
+      style: const TextStyle(color: AppColor.blue, fontSize: 14),
+    ),
+  );
 }

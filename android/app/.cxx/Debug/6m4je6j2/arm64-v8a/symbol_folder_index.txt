@@ -1,0 +1,1 @@
+C:\workspace\stressSense\build\app\intermediates\cxx\Debug\6m4je6j2\obj\arm64-v8a

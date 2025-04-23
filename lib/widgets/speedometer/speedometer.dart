@@ -21,7 +21,7 @@ class SpeedometerWidget extends StatelessWidget {
     return LayoutBuilder(
       builder: (context, constraints) {
         double widgetWidth = constraints.maxWidth * 0.7;
-        double widgetHeight = widgetWidth;
+        double widgetHeight = widgetWidth - 70;
 
         return Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
